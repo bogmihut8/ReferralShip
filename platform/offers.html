@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="start">
+        <h1>Offers</h1>
+        <br>
+        <p>În ciuda opiniei publice, Lorem Ipsum nu e un simplu text fără sens. El îşi are rădăcinile într-o bucată a literaturii clasice latine din anul 45 î.e.n., făcând-o să aibă mai bine de 2000 ani. Profesorul universitar de latină de la colegiul Hampden-Sydney din Virginia, Richard McClintock, a căutat în bibliografie unul din cele mai rar folosite cuvinte latine "consectetur", întâlnit în pasajul Lorem Ipsum, şi căutând citate ale cuvântului respectiv în literatura clasică, a descoperit la modul cel mai sigur sursa provenienţei textului. Lorem Ipsum provine din secţiunile 1.10.32 şi 1.10.33 din "de Finibus Bonorum et Malorum" (Extremele Binelui şi ale Răului) de Cicerone, scrisă în anul 45 î.e.n.</p>
+        <p>Lorem Ipsum este pur şi simplu o machetă pentru text a industriei tipografice. Lorem Ipsum a fost macheta standard a industriei încă din secolul al XVI-lea, când un tipograf anonim a luat o planşetă de litere şi le-a amestecat pentru a crea o carte demonstrativă pentru literele respective.</p>
+        <br>
+        
+        <div class="control-group">
+            <div class="controls">
+                 <div class="accordion" id="accordion2">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        Filters
+                      </a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+                      <div class="accordion-inner">
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div> <!-- /controls -->	
+        </div>
+    </div>
+    <div id="allOffers" class="row">
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        function ajaxGetCall(url, errorCallback, successCallback){
+            $.ajax({
+                url: url,
+                async: false,
+                type: 'get',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', currentUser.token_type +' '+ currentUser.access_token);
+                },
+                data: {},
+                dataType: 'json',
+                cache: false,
+                error: errorCallback,
+                success: successCallback
+            });
+        }
+        
+        var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        var myRecords = {};
+        ajaxGetCall('https://api.backand.com/1/query/data/getAllReferOffers?parameters=%7B%22pageSize%22:%2220%22,%22startFrom%22:%220%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
+        for(var i in myRecords){
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(myRecords[i].dateCreated)+"</p><h3>"+myRecords[i].title+"</h3><p class='short-description'>"+myRecords[i].content+"</p><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4></div></div></div>")
+        }
+        $(".offer-more-details").on("click", function(){
+            localStorage.setItem("activeOfferId", $(this).attr("data-id"));
+            $("#mainSection").load("offer-page.html");
+        });
+    });
+</script>
