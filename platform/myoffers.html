@@ -32,11 +32,13 @@
         var myRecords = {};
         ajaxGetCall('https://api.backand.com/1/query/data/getMyReferOffers?parameters=%7B%22oKey%22:%22'+oKey+'%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
         for(var i in myRecords){
-            $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(myRecords[i].dateCreated)+"<h3>"+myRecords[i].title+"</h3><p class='short-description'>"+myRecords[i].content+"</p><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#' class='offer-more-details' data-id='"+myRecords[i].id+"'>More details</a></div></div></div>")
+            $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(myRecords[i].dateCreated)+"<h3>"+myRecords[i].title+"</h3><p class='short-description'>"+myRecords[i].content+"</p><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='offer-more-details' data-id='"+myRecords[i].id+"'>More details</a></div></div></div>")
         }
-        $(".offer-more-details").on("click", function(){
-            localStorage.setItem("activeOfferId", $(this).attr("data-id"));
-            $("#mainSection").load("offer-page.html");
-        });
+//        $(".offer-more-details").on("click", function(){
+//            localStorage.setItem("activeOfferId", $(this).attr("data-id"));
+//            $("#mainSection").load("offer-page.html", function(){
+//                window.history.pushState("Offer page", "Offer page", '/platform/offer-page/'+localStorage.getItem("activeOfferId"));
+//            });
+//        });
     });
 </script>

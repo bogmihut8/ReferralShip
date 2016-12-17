@@ -1,14 +1,13 @@
 $(function () {
 	if(!localStorage.getItem("currentUser")){
-        window.location.replace("/index.html");
+        window.location.replace("/");
     }
-
+    
     $( document ).ajaxStart(function() {
       $(".loader").removeClass("hidden");
     }).ajaxComplete(function(){
       $(".loader").addClass("hidden");
     });
-    $("#mainSection").load("dashboard.html");
 	
 	$('.subnavbar').find ('li').each (function (i) {
 	
@@ -41,13 +40,26 @@ $(function () {
     }
     $("#signOut").on("click", function(){
         localStorage.removeItem("currentUser");
-        window.location.replace("/index.html");
+        window.location.replace("/");
     });
     
-	$(".mainnav li a").on("click", function(){
+	$(document).on("click", ".mainnav li a", function(){
         $(".mainnav li").removeClass("active");
+        var page = $(this).attr("id");
         $(this).parent().addClass("active");
-        $("#mainSection").load($(this).attr("id") + ".html");
+        $("#mainSection section").empty();
     });
+    
+    window.onpopstate = function(){
+        $("#mainSection section").empty();
+        $(".mainnav li").removeClass("active");
+        if(window.location.hash == ""){
+            $("#dashboard").parent().addClass("active");
+        }
+        else if(window.location.hash.indexOf(":") > -1){}
+        else{
+            $(window.location.hash).parent().addClass("active");
+        }
+    }
     
 });

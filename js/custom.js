@@ -9,7 +9,7 @@ $(function () {
     if(localStorage.getItem("currentUser")){
         window.location.replace("/platform/index.html");
     }
-    window.history.pushState('ReferralShip Login', 'Login', '/login');
+
       var animating = false,
       submitPhase1 = 1100,
       submitPhase2 = 400,

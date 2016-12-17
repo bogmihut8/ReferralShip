@@ -41,11 +41,11 @@
   <div class="subnavbar-inner">
     <div class="container">
       <ul class="mainnav">
-        <li class="active"><a href="#" id="#dashboard"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
-        <li><a href="javascript:;" id="offers"><i class="icon-list-alt"></i><span>Offers</span> </a> </li>
-        <li><a href="#myoffers" id="myoffers"><i class="icon-list"></i><span>My Offers</span> </a></li>
-        <li><a href="javascript:;" id="account"><i class="icon-user"></i><span>Account details</span> </a> </li>
-        <li><a href="javascript:;" id="about"><i class="icon-info-sign"></i><span>About</span> </a> </li>
+          <li class="active"><a href="#dashboard" id="dashboard" class="url-change"><i class="icon-dashboard"></i><span>Dashboard</span> </a></li>
+          <li><a href="#alloffers" id="alloffers" class="url-change"><i class="icon-list-alt"></i><span>Offers</span> </a> </li>
+        <li><a href="#myoffers" id="myoffers" class="url-change"><i class="icon-list"></i><span>My Offers</span> </a></li>
+        <li><a href="#account" id="account" class="url-change"><i class="icon-user"></i><span>Account details</span> </a> </li>
+        <li><a href="#about" id="about" class="url-change"><i class="icon-info-sign"></i><span>About</span> </a> </li>
         <li><a href="javascript:;" id="signOut"><i class="icon-off"></i><span>Sign out</span> </a> </li>
 <!--
         <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>
@@ -68,7 +68,14 @@
 <!-- /subnavbar -->
 <div class="main">
     <div class="main-inner">
-        <div class="container" id="mainSection"></div>
+        <div class="container" id="mainSection">
+            <section id="dashboard" src="dashboard.html" default></section>
+            <section id="alloffers" src="alloffers.html"></section>
+            <section id="myoffers" src="myoffers.html"></section>
+            <section id="account" src="account.html"></section>
+            <section id="about" src="about.html"></section>
+            <section id="offer-page" src="offer-page.html"></section>
+        </div>
     </div>
 </div>
 <!-- /main -->
@@ -99,5 +106,6 @@
 <script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.min.js"></script>
 <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
 <script src="js/base.js"></script> 
+<script src="js/spapp.js"></script>
 </body>
 </html>

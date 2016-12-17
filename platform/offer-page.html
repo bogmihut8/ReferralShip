@@ -47,36 +47,39 @@
         }
         
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        var offerId = JSON.parse(localStorage.getItem("activeOfferId"));
+//        var offerId = JSON.parse(localStorage.getItem("activeOfferId"));
         var oKey = JSON.parse(localStorage.getItem("currentKey"))[0].operationKey;
-        ajaxGetCall('https://api.backand.com/1/query/data/getReferOffer?parameters=%7B%22id%22:%22'+offerId+'%22%7D', function(error){alert(JSON.stringify(error))}, 
-        function(data){
-            myRecord = data;
-            $("#offer").append("<div class='span12'><p><i class='icon-time'></i>&nbsp;<span class='timeago'>"+$.timeago(myRecord[0].dateCreated)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author: "+myRecord[0].author+"</p><h1>"+myRecord[0].title+"</h1><p>"+myRecord[0].content+"</p><h4><b>Company: </b>"+myRecord[0].company+"</h4><h4><b>Location: </b>"+myRecord[0].city+", "+myRecord[0].country+"</h4></div>");
-        });
-//
-        ajaxGetCall('https://api.backand.com/1/objects/action/ReferOffer/1?name=allowEdit&parameters=%7B%22operationKey%22:%22'+oKey+'%22%7D',
-        function(error){alert(JSON.stringify(error))}, 
-        function(data){
-            if(data)
-                $(".offer-page-control").html('<button type="button" class="btn btn-warning">Edit</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">Delete</button>');
-                $(".interested-message").hide();
-        }
-        )
-        
-        $(".send-message").on("click", function(){
-            $.ajax({
-                url: 'https://api.backand.com/1/objects/action/ReferOffer/1?name=SendEmailSendGrid&parameters=%7B%22to%22:%22'+myRecord[0].author+'%22,%22message%22:%22'+$("#comment").val()+'%22%7D',
-                async: false,
-                type: 'get',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', currentUser.token_type +' '+ currentUser.access_token);
-                },
-                data: {
-                },
-                dataType: 'json',
-                cache: false,
-            });
+        window.app.page("offer-page", function(){
+            return function(params) {
+                ajaxGetCall('https://api.backand.com/1/query/data/getReferOffer?parameters=%7B%22id%22:%22'+parseInt(params)+'%22%7D', function(error){alert(JSON.stringify(error))}, 
+                function(data){
+                    myRecord = data;
+                    $("#offer").append("<div class='span12'><p><i class='icon-time'></i>&nbsp;<span class='timeago'>"+$.timeago(myRecord[0].dateCreated)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author: "+myRecord[0].author+"</p><h1>"+myRecord[0].title+"</h1><p>"+myRecord[0].content+"</p><h4><b>Company: </b>"+myRecord[0].company+"</h4><h4><b>Location: </b>"+myRecord[0].city+", "+myRecord[0].country+"</h4></div>");
+                });
+                ajaxGetCall('https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=allowEdit&parameters=%7B%22operationKey%22:%22'+oKey+'%22%7D',
+                function(error){alert(JSON.stringify(error))}, 
+                function(data){
+                    if(data){
+                        $(".offer-page-control").html('<button type="button" class="btn btn-warning">Edit</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">Delete</button>');
+                        $(".interested-message").hide();
+                    }
+                }
+                )
+                $(".send-message").on("click", function(){
+                    $.ajax({
+                        url: 'https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=SendEmailSendGrid&parameters=%7B%22to%22:%22'+myRecord[0].author+'%22,%22message%22:%22'+$("#comment").val()+'%22%7D',
+                        async: false,
+                        type: 'get',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', currentUser.token_type +' '+ currentUser.access_token);
+                        },
+                        data: {
+                        },
+                        dataType: 'json',
+                        cache: false,
+                    });
+                });
+            }
         });
     });
 </script>

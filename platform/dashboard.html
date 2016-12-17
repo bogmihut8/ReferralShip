@@ -7,7 +7,8 @@
         <div class="widget">
 	       <div class="widget-content">		
                <h2><i class="icon-list-alt"></i>&nbsp;&nbsp;Find offers</h2>
-               <p>Check out the offers list, get in touch with the author, discuss further about the vacant position, company or benefits and get your dream job. </p>	   	<button type="button" class="btn btn-warning right-display dashboard-control" data-id="offers">View all offers</button>
+               <p>Check out the offers list, get in touch with the author, discuss further about the vacant position, company or benefits and get your dream job. </p>
+               <a href="#alloffers" class="btn btn-warning right-display dashboard-control">View all offers</a>
             </div> <!-- /widget-content -->		
 	   </div>   
     </div>
@@ -15,7 +16,8 @@
         <div class="widget">
 	       <div class="widget-content">		
                <h2><i class="icon-list"></i>&nbsp;&nbsp;Create your offers</h2>
-               <p>You can access your created offers right here, create more, edit or delete the existing ones. Hit "More details" to see a preview and make sure all the informations are correct.</p>	   	<button type="button" class="btn btn-warning right-display myoffers dashboard-control" data-id="myoffers">Create offers</button>
+               <p>You can access your created offers right here, create more, edit or delete the existing ones. Hit "More details" to see a preview and make sure all the informations are correct.</p>
+               <a href="#myoffers" class="btn btn-warning right-display myoffers dashboard-control">Create offers</a>
             </div> <!-- /widget-content -->		
 	   </div>   
     </div>
@@ -23,7 +25,8 @@
         <div class="widget">
 	       <div class="widget-content">		
                <h2><i class="icon-user"></i>&nbsp;&nbsp;Edit your account</h2>
-               <p>You can change your password or edit information like your name, birthday, gender, and phone number associated with your account from here. </p>	   	<button type="button" class="btn btn-warning right-display dashboard-control" data-id="account">Edit account details</button>	
+               <p>You can change your password or edit information like your name, birthday, gender, and phone number associated with your account from here. </p>
+               <a href="#account" class="btn btn-warning right-display dashboard-control">Edit account details</a>	
             </div> <!-- /widget-content -->		
 	   </div>   
     </div>
@@ -31,16 +34,16 @@
         <div class="widget">
 	       <div class="widget-content">		
                <h2><i class="icon-info-sign"></i>&nbsp;&nbsp;Find out more</h2>
-               <p>Read more information about employee referral program, the advantages, the company perspective and a lot more interesting info. </p>	   	<button type="button" class="btn btn-warning right-display dashboard-control" data-id="about">Learn more</button>	
+               <p>Read more information about employee referral program, the advantages, the company perspective and a lot more interesting info. </p>	   	
+               <a href="#about" class="btn btn-warning right-display dashboard-control">Learn more</a>	
             </div> <!-- /widget-content -->		
 	   </div>   
     </div>
 </div>
 <script>
     $(document).ready(function(){
-            window.history.pushState('page2', 'Title', '/dashboard');
-        $(".dashboard-control").on("click", function(){
-            $("#"+$(this).attr("data-id")).trigger("click");
-        });
+//        $(".dashboard-control").on("click", function(){
+//            $("#"+$(this).attr("data-id")).trigger("click");
+//        });
     });
 </script>
