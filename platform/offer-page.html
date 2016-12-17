@@ -2,8 +2,9 @@
     <div class="start">
         <div id="offer" class="row">
         </div><br>
-        <div class="offer-control">
+        <div class="form-group offer-page-control">
         </div><br>
+        
         <div class="interested-message">
             <p>Are you interested in this offer? Get in touch with the author:</p>
     
@@ -55,9 +56,13 @@
         });
 //
         ajaxGetCall('https://api.backand.com/1/objects/action/ReferOffer/1?name=allowEdit&parameters=%7B%22operationKey%22:%22'+oKey+'%22%7D',
-                   function(error){alert(JSON.stringify(error))}, 
-                   function(data){console.log(data)}
-                   )
+        function(error){alert(JSON.stringify(error))}, 
+        function(data){
+            if(data)
+                $(".offer-page-control").html('<button type="button" class="btn btn-warning">Edit</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">Delete</button>');
+                $(".interested-message").hide();
+        }
+        )
         
         $(".send-message").on("click", function(){
             $.ajax({

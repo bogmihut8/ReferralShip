@@ -2,6 +2,7 @@ $(function () {
 	if(!localStorage.getItem("currentUser")){
         window.location.replace("/index.html");
     }
+
     $( document ).ajaxStart(function() {
       $(".loader").removeClass("hidden");
     }).ajaxComplete(function(){
@@ -48,4 +49,5 @@ $(function () {
         $(this).parent().addClass("active");
         $("#mainSection").load($(this).attr("id") + ".html");
     });
+    
 });
