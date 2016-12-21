@@ -2,11 +2,10 @@
     <div class="start">
         <h1>Offers</h1>
         <br>
-        <p>În ciuda opiniei publice, Lorem Ipsum nu e un simplu text fără sens. El îşi are rădăcinile într-o bucată a literaturii clasice latine din anul 45 î.e.n., făcând-o să aibă mai bine de 2000 ani. Profesorul universitar de latină de la colegiul Hampden-Sydney din Virginia, Richard McClintock, a căutat în bibliografie unul din cele mai rar folosite cuvinte latine "consectetur", întâlnit în pasajul Lorem Ipsum, şi căutând citate ale cuvântului respectiv în literatura clasică, a descoperit la modul cel mai sigur sursa provenienţei textului. Lorem Ipsum provine din secţiunile 1.10.32 şi 1.10.33 din "de Finibus Bonorum et Malorum" (Extremele Binelui şi ale Răului) de Cicerone, scrisă în anul 45 î.e.n.</p>
-        <p>Lorem Ipsum este pur şi simplu o machetă pentru text a industriei tipografice. Lorem Ipsum a fost macheta standard a industriei încă din secolul al XVI-lea, când un tipograf anonim a luat o planşetă de litere şi le-a amestecat pentru a crea o carte demonstrativă pentru literele respective.</p>
+        <p class="increased-font-size">Take a look on all the current active offers and contact the authors for the ones your are interested in.  </p>
         <br>
         
-        <div class="control-group">
+        <div class="control-group filters">
             <div class="controls">
                  <div class="accordion" id="accordion2">
                   <div class="accordion-group">
@@ -52,6 +51,10 @@
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var myRecords = {};
         ajaxGetCall('https://api.backand.com/1/query/data/getAllReferOffers?parameters=%7B%22pageSize%22:%2220%22,%22startFrom%22:%220%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
+        if(myRecords.length == 0){
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content' style='padding:20px 15px 20px 15px'><p style='text-align: center; font-style: italic; font-size:20px;'>There are no offers here :(</p></div></div></div>")
+            $(".filters").hide();
+        }
         for(var i in myRecords){
             $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(myRecords[i].dateCreated)+"</p><h3>"+myRecords[i].title+"</h3><p class='short-description'>"+myRecords[i].content+"</p><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4></div></div></div>")
         }

@@ -9,7 +9,6 @@ $(function () {
     if(localStorage.getItem("currentUser")){
         window.location.replace("/platform/index.html");
     }
-
       var animating = false,
       submitPhase1 = 1100,
       submitPhase2 = 400,
@@ -50,13 +49,26 @@ $(function () {
     // LOGIN
     $('#login_button').click(function (e) {        
         var button = this;
-        $(".login_error").addClass("hide");
         var username = $('#login_username').val();
         var password = $('#login_password').val();
         backand.security.authentication.login(username, password, appname, 
         function(data){
             $(button).addClass("processing");
             localStorage.setItem("currentUser", JSON.stringify(data));
+            var url = 'https://api.backand.com/1/query/data/getUserFirstAndLastName?parameters=%7B%22id%22:%22'+data.userId+'%22%7D';
+            $.ajax({
+                url: url,
+                async: false,
+                type: 'get',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', data.token_type +' '+ data.access_token);
+                },
+                data: data,
+                dataType: 'json',
+                success: function(data){
+                    localStorage.setItem("firstAndLastName", JSON.stringify(data));
+                }
+            });
             
             var url = 'https://api.backand.com/1/query/data/getSecretOperationKey?parameters=%7B%22email%22:%22'+username+'%22%7D'
             $.ajax({
@@ -76,10 +88,18 @@ $(function () {
             setTimeout(function() {window.location.replace("/platform/index.html");}, 2000);
         },
         function(error){
-            $(".login_error").removeClass("hide").attr("style", "opacity:1");
-            $(".login_error").animate({
-                opacity: 0
-              }, 5000);
+            for (var key in error.responseJSON) {
+                if(key === "error_description")
+                    var errorString = error.responseJSON[key];
+            }
+            swal({
+              title: "Error!",
+              text: errorString,
+              type: "error",
+              confirmButtonText: "Close",
+              allowOutsideClick: true,
+              allowEscapeKey: true
+            });
         });
     });
     
@@ -132,9 +152,20 @@ $(function () {
                 setTimeout(function() {window.location.replace("/platform/index.html");}, 2000);
             },
             function(error){
-                alert(error);
             })
-        }, function(){alert('Error')}, true, true);
+        }, function(error){
+            var errorString = error.responseJSON;
+            if(typeof error.responseJSON === 'object')
+                errorString = error.responseJSON.error_description;
+            swal({
+              title: "Error!",
+              text: errorString,
+              type: "error",
+              confirmButtonText: "Close",
+              allowOutsideClick: true,
+              allowEscapeKey: true
+            });
+        }, true, true);
     });
 
 });

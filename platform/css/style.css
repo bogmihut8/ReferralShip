@@ -56,7 +56,7 @@ textarea {
 }
 
 a{
-    color: #f49542;
+    color: #ec9400;
 }
 
 
@@ -95,8 +95,14 @@ a{
 	font-weight: 600;
 	position: relative;
 	top: 2px;
-    color: #f49542;
+    color: #ec9400;
     font-size:28px;
+    padding:0px 20px 6px;
+}
+
+.navbar .brand img{
+    width:1.7em;
+    margin-right:15px;
 }
 
 .navbar .search-query {
@@ -122,7 +128,7 @@ a{
 */
 
 .subnavbar {
-    	margin-bottom: 0;
+    	margin-bottom: 20px;
     }
     
 .subnavbar-inner {
@@ -190,7 +196,7 @@ a{
 
 .subnavbar .container > ul > li.active > a {
 	
-	border-bottom:3px solid #f49542;
+	border-bottom:3px solid #ec9400;
 	color: #383838;
 }
     
@@ -1109,20 +1115,26 @@ width: 11px;}
 	margin-bottom: 30px;
 }
 
-.welcome, .start{
+.welcome, .start, .image-header{
     margin-left:20px;
     margin-bottom:20px;
+    position: relative;
+}
+
+.add-new-offer{
+    right:0;
+    position: absolute;
 }
 
 #nav-username span#first{
-  background-color: #f49e42;
+  background-color: #ec9400;
   display: inline-block;
   padding:5px;
     color: white;
 }
 
 #nav-username span#second{
-  color: #f49e42;
+  color: #ec9400;
   font-size:16px;
 }
 
@@ -1136,6 +1148,9 @@ width: 11px;}
     color: #b3b3b3;
 }
 
+#myoffersList .span12 .widget-content{
+    padding-bottom: 35px;
+}
 #myoffersList .span12 .widget-content h3{
     margin-bottom:10px;
 }
@@ -1174,13 +1189,13 @@ width: 11px;}
     position: absolute;
     right: 20px;
     bottom: 14px;
-    color: #f49542;
+    color: white;
 }
 .offer-edit{
     position: absolute;
     right: 70px;
     top: 14px;
-    color: #f49542;
+    color: #ec9400;
 }
 .offer-delete{
     position: absolute;
@@ -1196,7 +1211,7 @@ width: 11px;}
     height: 15px;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
-    left: 185px;
+    left: 245px;
     top: 16px;
     position: absolute;
 }
@@ -1241,10 +1256,25 @@ width: 11px;}
 }
 .account-details .form-horizontal .control-label{
     text-align: left;
-    width:90px;
+    width:120px;
 }
 .account-details .form-horizontal .controls{
     margin-left: 0;
+}
+.dashboard .image-header{
+    background-image: url('../../images/dashboard.jpg');
+    background-position: center;
+    background-size: cover;
+    height:150px;
+    padding-top: 20px;
+}
+.dashboard .image-header .responsive-dashboard{
+    background-image: url(../../images/responsive-dashboard-v2.png);
+    background-position: center;
+    background-size: contain;
+    height: 140px;
+    background-repeat: no-repeat;
+    margin-left:0;
 }
 /*------------------------------------------------------------------
 [8. Miscellaneous]
@@ -1307,7 +1337,7 @@ color: #333;
 */
 
 @media (max-width: 767px) {
-    .start, .welcome{
+    .start, .welcome, .image-header{
         margin-left:0;
     }
 	#main {
@@ -1437,7 +1467,7 @@ color: #333;
 	.navbar .search-query {
 		width: 200px;
 	}
-    .start, .welcome{
+    .start, .welcome, .image-header{
         margin-left:30px;
     }
 	

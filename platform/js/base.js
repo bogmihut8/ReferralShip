@@ -19,10 +19,10 @@ $(function () {
 		
 	});
 	var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-	
+	var firstAndLastName = JSON.parse(localStorage.getItem("firstAndLastName"));
     var accessToken = currentUser.access_token;
-	$("#nav-username").find("#second").html(currentUser.fullName);
-    $("#nav-username").find("#first").html(currentUser.fullName.split(" ")[0].charAt(0) +""+ currentUser.fullName.split(" ")[1].charAt(0))
+	$("#nav-username").find("#second").html(firstAndLastName[0].firstName + " " + firstAndLastName[0].lastName);
+    $("#nav-username").find("#first").html(firstAndLastName[0].firstName.charAt(0) +""+ firstAndLastName[0].lastName.charAt(0));
     function ajaxGetCall(url, errorCallback, successCallback){
         $.ajax({
             url: url,
@@ -61,5 +61,6 @@ $(function () {
             $(window.location.hash).parent().addClass("active");
         }
     }
+    
     
 });

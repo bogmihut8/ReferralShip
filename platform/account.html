@@ -5,10 +5,10 @@
             <fieldset>
 
                 <div class="control-group">											
-                    <label class="control-label" for="username">Username</label>
+                    <label class="control-label" for="email">Email</label>
                     <div class="controls">
-                        <input type="text" class="span6 disabled" id="username" value="Example" disabled>
-                        <p class="help-block">Your username is for logging in and cannot be changed.</p>
+                        <input type="text" class="span4 disabled" id="email" disabled>
+                        <p class="help-block">Your email is for logging in and cannot be changed.</p>
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
@@ -16,7 +16,7 @@
                 <div class="control-group">											
                     <label class="control-label" for="firstname">First Name</label>
                     <div class="controls">
-                        <input type="text" class="span6" id="firstname" value="John">
+                        <input type="text" class="span4" id="firstname">
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
@@ -24,7 +24,7 @@
                 <div class="control-group">											
                     <label class="control-label" for="lastname">Last Name</label>
                     <div class="controls">
-                        <input type="text" class="span6" id="lastname" value="Donga">
+                        <input type="text" class="span4" id="lastname">
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
@@ -35,17 +35,24 @@
                 <br /><br />
 
                 <div class="control-group">											
-                    <label class="control-label" for="password1">Password</label>
+                    <label class="control-label" for="password1">Old Password</label>
                     <div class="controls">
-                        <input type="password" class="span4" id="password1" value="thisispassword">
+                        <input type="password" class="span4" id="password1">
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
 
                 <div class="control-group">											
-                    <label class="control-label" for="password2">Confirm</label>
+                    <label class="control-label" for="password2">New Password</label>
                     <div class="controls">
-                        <input type="password" class="span4" id="password2" value="thisispassword">
+                        <input type="password" class="span4" id="password2">
+                    </div> <!-- /controls -->				
+                </div> <!-- /control-group -->
+                
+                <div class="control-group">											
+                    <label class="control-label" for="password3">Repeat Password</label>
+                    <div class="controls">
+                        <input type="password" class="span4" id="password3">
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
                 <div class="control-group">
@@ -56,3 +63,120 @@
 										
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        function ajaxGetCall(url, type, data, errorCallback, successCallback){
+            $.ajax({
+                url: url,
+                async: false,
+                type: type,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', currentUser.token_type +' '+ currentUser.access_token);
+                },
+                data: data,
+                dataType: 'json',
+                cache: false,
+                error: errorCallback,
+                success: successCallback
+            });
+        }
+        var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        var nameObj = JSON.parse(localStorage.getItem("firstAndLastName"));
+        $("#email").val(currentUser.username);
+        $("#firstname").val(nameObj[0].firstName);
+        $("#lastname").val(nameObj[0].lastName);
+        var oKey = JSON.parse(localStorage.getItem("currentKey"))[0].operationKey;
+       
+        $(".update-profile").on("click", function(){
+            var firstName = $('#firstname').val();
+            var lastName = $('#lastname').val();
+            var updateUserData = JSON.stringify({
+              "id" : currentUser.userId,
+              "firstName": firstName,
+              "lastName": lastName,
+              "email": currentUser.username,
+              "operationKey": oKey
+            });
+            ajaxGetCall('https://api.backand.com/1/query/data/updateUserDetails', 'post', updateUserData, 
+            function(){
+                var errorString = error.responseJSON;
+
+                swal({
+                  title: "Error!",
+                  text: errorString,
+                  type: "error",
+                  confirmButtonText: "Close",
+                  allowOutsideClick: true,
+                  allowEscapeKey: true
+                });
+            }, 
+            function(){
+                var errorString = "Details were updated"
+                swal({
+                  title: "Success!",
+                  text: errorString,
+                  type: "success",
+                  confirmButtonText: "Close",
+                  allowOutsideClick: true,
+                  allowEscapeKey: true
+                });
+                var newSetter = {};
+                newSetter[0] = {
+                        'firstName': firstName,
+                        'lastName': lastName
+                }
+                localStorage.setItem("firstAndLastName", JSON.stringify(newSetter));
+                var firstAndLastName = JSON.parse(localStorage.getItem("firstAndLastName"));
+                $("#nav-username").find("#first").html(firstAndLastName[0].firstName.charAt(0) +""+ firstAndLastName[0].lastName.charAt(0));
+                $("#nav-username").find("#second").html(firstName + " " + lastName);
+                $('#firstname').val(firstName);
+                $('#lastname').val(lastName)
+            })
+        });
+        
+        $(".change-password").on("click", function(){
+            var changePasswordData = JSON.stringify({
+              "oldPassword": $('#password1').val(),
+              "newPassword": $('#password2').val()
+            });
+            if($('#password2').val() === $('#password3').val()){
+                ajaxGetCall('https://api.backand.com/1/user/changePassword', 'post', changePasswordData, 
+                function(){
+                    var errorString = error.responseJSON;
+
+                    swal({
+                      title: "Error!",
+                      text: errorString,
+                      type: "error",
+                      confirmButtonText: "Close",
+                      allowOutsideClick: true,
+                      allowEscapeKey: true
+                    });
+                }, 
+                function(){
+                    var errorString = "Password was changed"
+                    swal({
+                      title: "Success!",
+                      text: errorString,
+                      type: "success",
+                      confirmButtonText: "Close",
+                      allowOutsideClick: true,
+                      allowEscapeKey: true
+                    });
+                    $('#password1').val("");$('#password2').val("");$('#password3').val("");
+                })
+            }
+            else{
+            var errorString = "Passwords do not match";
+            swal({
+              title: "Error!",
+              text: errorString,
+              type: "error",
+              confirmButtonText: "Close",
+              allowOutsideClick: true,
+              allowEscapeKey: true
+            });
+            }
+        });
+    });
+</script>
