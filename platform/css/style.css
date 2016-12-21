@@ -1184,6 +1184,7 @@ width: 11px;}
 .short-description{
     height: 45px;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 .offer-more-details{
     position: absolute;
@@ -1276,6 +1277,12 @@ width: 11px;}
     background-repeat: no-repeat;
     margin-left:0;
 }
+.create-offer-submit{
+    margin-top: 20px;
+    width: 170px;
+    height: 35px;
+    margin-left:60px;
+}
 /*------------------------------------------------------------------
 [8. Miscellaneous]
 */
@@ -1338,6 +1345,17 @@ color: #333;
 
 @media (max-width: 767px) {
     .start, .welcome, .image-header{
+        margin-left:0;
+    }
+    .form-horizontal .controls {
+        margin-left: 0;
+    }
+    .form-horizontal .control-label{
+        width:inherit!important;
+        padding-right:15px;
+        
+    }
+    .create-offer-submit{
         margin-left:0;
     }
 	#main {

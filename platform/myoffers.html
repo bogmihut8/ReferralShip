@@ -1,7 +1,7 @@
 <div class="row">
     <div class="start">
         <h1>My Offers
-        <a href="#offer-page-edit" class="btn btn-warning add-new-offer" data-id="5">New offer &nbsp; <i class="icon-plus"></i></a>
+        <a href="#offer-page-create" class="btn btn-warning add-new-offer" data-id="5">New offer &nbsp; <i class="icon-plus"></i></a>
         </h1>
         <br>
         <p class="increased-font-size">Here you can create new offers, manage the active offers and also the expired ones.</p>
@@ -31,18 +31,18 @@
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var oKey = JSON.parse(localStorage.getItem("currentKey"))[0].operationKey;
         var myRecords = {};
+       
+        $("#offer-page-create").on("click", function(){
+            window.location.replace("#offer-page-create")
+        });
         ajaxGetCall('https://api.backand.com/1/query/data/getMyReferOffers?parameters=%7B%22oKey%22:%22'+oKey+'%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
         if(myRecords.length == 0){
             $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content' style='padding:20px 15px 20px 15px'><p style='text-align: center; font-style: italic; font-size:20px;'>There are no offers here :(</p></div></div></div>")
         }
         for(var i in myRecords){
-            $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(myRecords[i].dateCreated)+"<h3>"+myRecords[i].title+"</h3><p class='short-description'>"+myRecords[i].content+"</p><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
+            var date = new Date(myRecords[i].dateCreated);
+            var corrDate = new Date(new Date(date).setHours(date.getHours+2));
+            $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"<h3>"+myRecords[i].title+"</h3><div class='short-description'>"+myRecords[i].content+"</div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
         }
-//        $(".offer-more-details").on("click", function(){
-//            localStorage.setItem("activeOfferId", $(this).attr("data-id"));
-//            $("#mainSection").load("offer-page.html", function(){
-//                window.history.pushState("Offer page", "Offer page", '/platform/offer-page/'+localStorage.getItem("activeOfferId"));
-//            });
-//        });
     });
 </script>

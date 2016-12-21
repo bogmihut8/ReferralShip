@@ -56,7 +56,8 @@
             $(".filters").hide();
         }
         for(var i in myRecords){
-            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(myRecords[i].dateCreated)+"</p><h3>"+myRecords[i].title+"</h3><p class='short-description'>"+myRecords[i].content+"</p><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4></div></div></div>")
+            var date = new Date(myRecords[i].dateCreated);
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</p><h3>"+myRecords[i].title+"</h3><div class='short-description'>"+myRecords[i].content+"</div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4></div></div></div>")
         }
         $(".offer-more-details").on("click", function(){
             localStorage.setItem("activeOfferId", $(this).attr("data-id"));
