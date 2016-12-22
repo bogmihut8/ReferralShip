@@ -59,18 +59,14 @@
                     <div class="controls">
                         <select id="jobType">
                             <option value="" disabled selected>All job types</option>
-                            <option value="fulltime">
+                            <option value="Full-time">
                                     Full-time</option>
-                            <option value="temporary">
-                                    Temporary</option>
-                            <option value="internship">
+                            <option value="Internship">
                                     Internship</option>
-                            <option value="contract">
+                            <option value="Contract">
                                     Contract</option>
-                            <option value="parttime">
+                            <option value="Part-time">
                                     Part-time</option>
-                            <option value="commission">
-                                    Commission</option>
                             </select>
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
@@ -116,7 +112,7 @@
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
                 <div class="control-group">
-                    <button type="button" class="btn btn-warning create-offer-submit">Change password</button>
+                    <button type="button" class="btn btn-warning create-offer-submit">Create offer</button>
                 </div>
             </fieldset>
         </form>
@@ -155,7 +151,6 @@
         // console.log(tinymce.activeEditor.getContent())
         var date = new Date();
         var expDate = new Date(new Date(date).setMonth(date.getMonth()+1));
-        console.log($.timeago(date))
         $(".create-offer-submit").on("click", function(){
             var newItem = JSON.stringify(
             {

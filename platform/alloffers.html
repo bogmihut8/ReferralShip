@@ -57,11 +57,8 @@
         }
         for(var i in myRecords){
             var date = new Date(myRecords[i].dateCreated);
-            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</p><h3>"+myRecords[i].title+"</h3><div class='short-description'>"+myRecords[i].content+"</div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4></div></div></div>")
+            var corrDate = new Date(new Date(date).setHours(date.getHours+2));
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"<h3>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'><div class='tag span2 orange'>"+myRecords[i].procent+"% Bonus</div><div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
         }
-        $(".offer-more-details").on("click", function(){
-            localStorage.setItem("activeOfferId", $(this).attr("data-id"));
-            $("#mainSection").load("offer-page.html");
-        });
     });
 </script>

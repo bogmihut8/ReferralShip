@@ -39,7 +39,7 @@ $(function () {
         });
     }
     $("#signOut").on("click", function(){
-        localStorage.removeItem("currentUser");
+        localStorage.clear();
         window.location.replace("/");
     });
     

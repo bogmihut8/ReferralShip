@@ -15,6 +15,7 @@ $(function () {
       logoutPhase1 = 800,
       $login = $(".login"),
       $app = $(".app");
+      
     
     function validateInput(input){
         if(input.val() == ''){

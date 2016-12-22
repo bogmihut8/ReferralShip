@@ -1277,11 +1277,52 @@ width: 11px;}
     background-repeat: no-repeat;
     margin-left:0;
 }
-.create-offer-submit{
+.dashboard .span6 .widget-content{
+    min-height: 150px;
+}
+.dashboard .span6 .widget-content p{
+    margin-top:15px;
+    margin-bottom:25px;
+}
+.create-offer-submit, .edit-offer-submit{
     margin-top: 20px;
     width: 170px;
     height: 35px;
     margin-left:60px;
+}
+.job-facts .tag{
+    text-align: center;
+    background-color:white;
+    margin-bottom:10px;
+    border-radius: 10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    -webkit-transition: box-shadow 0.2s ease-in-out;
+    -moz-transition: box-shadow 0.2s ease-in-out;
+    -o-transition: box-shadow 0.2s ease-in-out; 
+}
+.job-facts .tag.orange, .job-facts-offer-list .tag.orange{
+    background-color: #ec9400!important;
+    color: white;
+    font-weight: 600;
+}
+.job-facts-offer-list .tag{
+    text-align: center;
+    background-color:#f9f6f1;
+    margin-bottom:20px;
+    border-radius: 10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    -webkit-transition: box-shadow 0.2s ease-in-out;
+    -moz-transition: box-shadow 0.2s ease-in-out;
+    -o-transition: box-shadow 0.2s ease-in-out;
+    
 }
 /*------------------------------------------------------------------
 [8. Miscellaneous]
