@@ -103,18 +103,6 @@ $(function () {
             });
         });
     });
-    
-    function makeKey()
-    {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for( var i=0; i < 10; i++ )
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        
-        var k = text+Date.parse(new Date());
-        return k;
-    }
 
     $('#submit_button').click(function (e) {
         var button = this;
@@ -123,37 +111,15 @@ $(function () {
           "lastName": $('#signup_lastname').val(),
           "email": $('#signup_email').val(),
           "password": $('#signup_password').val(),
-          "confirmPassword": $('#signup_repeatpass').val(),
-          "operationKey": makeKey()
+          "confirmPassword": $('#signup_repeatpass').val()
         });
         
         var urlSignup = backand.options.url + "/1/user/signup";
         
         backand.options.ajax.json(urlSignup, backandUser, backand.options.verbs.post, function(data){
-            var key = makeKey();
-            var url = 'https://api.backand.com/1/query/data/setKey?parameters=%7B%22name%22:%22'+$('#signup_email').val()+'%22,%22key%22:%22'+key+'%22%7D';
-            
-            $.ajax({
-                url: url,
-                async: false,
-                type: 'post',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'bearer ' + data.token);
-                },
-                data: data,
-                dataType: 'json',
-                success: function(){
-                    localStorage.setItem("currentKey", key);
-                }
-            });
-            backand.security.authentication.login($('#signup_email').val(), $('#signup_password').val(), appname,
-            function(data){
-                $(button).addClass("processing");
-                localStorage.setItem("currentUser", JSON.stringify(data));
-                setTimeout(function() {window.location.replace("/platform/index.html");}, 2000);
-            },
-            function(error){
-            })
+            $(button).addClass("processing");
+            swal("Success!", "A message has been sent to your e-mail. Verify your user and you will be ready to login!", "success");
+            setTimeout(function() {window.location.reload();}, 5000);
         }, function(error){
             var errorString = error.responseJSON;
             if(typeof error.responseJSON === 'object')

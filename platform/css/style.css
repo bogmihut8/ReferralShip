@@ -1133,6 +1133,12 @@ width: 11px;}
     color: white;
 }
 
+.send-message{
+    margin-top: 20px;
+    min-width: 175px;
+    height: 30px;
+}
+
 #nav-username span#second{
   color: #ec9400;
   font-size:16px;
@@ -1148,7 +1154,7 @@ width: 11px;}
     color: #b3b3b3;
 }
 
-#myoffersList .span12 .widget-content{
+#allOffers .span12 .widget-content, #myoffersList .span12 .widget-content{
     padding-bottom: 35px;
 }
 #myoffersList .span12 .widget-content h3{
@@ -1303,6 +1309,7 @@ width: 11px;}
     -webkit-transition: box-shadow 0.2s ease-in-out;
     -moz-transition: box-shadow 0.2s ease-in-out;
     -o-transition: box-shadow 0.2s ease-in-out; 
+    border: 1px solid #ddd;
 }
 .job-facts .tag.orange, .job-facts-offer-list .tag.orange{
     background-color: #ec9400!important;
@@ -1322,6 +1329,7 @@ width: 11px;}
     -webkit-transition: box-shadow 0.2s ease-in-out;
     -moz-transition: box-shadow 0.2s ease-in-out;
     -o-transition: box-shadow 0.2s ease-in-out;
+    border: 1px solid #ddd;
     
 }
 /*------------------------------------------------------------------
@@ -1396,7 +1404,7 @@ color: #333;
         padding-right:15px;
         
     }
-    .create-offer-submit{
+    .create-offer-submit, .edit-offer-submit{
         margin-left:0;
     }
 	#main {

@@ -2,7 +2,7 @@
     <div class="start">
         <h1>Offers</h1>
         <br>
-        <p class="increased-font-size">Take a look on all the current active offers and contact the authors for the ones your are interested in.  </p>
+        <p class="increased-font-size">Take a look on all the current active offers and contact the authors for the ones you are interested in.  </p>
         <br>
         
         <div class="control-group filters">
@@ -10,8 +10,9 @@
                  <div class="accordion" id="accordion2">
                   <div class="accordion-group">
                     <div class="accordion-heading">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                      <a style="font-size: 16px;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
                         Filters
+                        <i style="float:right;padding-top:2px;" class="icon-chevron-down"></i>
                       </a>
                     </div>
                     <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
@@ -58,7 +59,12 @@
         for(var i in myRecords){
             var date = new Date(myRecords[i].dateCreated);
             var corrDate = new Date(new Date(date).setHours(date.getHours+2));
-            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"<h3>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'><div class='tag span2 orange'>"+myRecords[i].procent+"% Bonus</div><div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
+            if(!myRecords[i].procent)
+                var procentTag = "";
+            else
+                var procentTag = "<div class='tag span2 orange'>"+myRecords[i].procent+"% Bonus</div>";
+            
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"<h3>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'>"+procentTag+"<div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
         }
     });
 </script>
