@@ -197,11 +197,7 @@
                             "country": $("#country").val(),
                             "jobType": $("#jobType").val(),
                             "jobLevel": $("#jobLevel").val(),
-                            "jobCategory": $("#jobCategory").val(),
-                            "operationKey": JSON.parse(localStorage.getItem("currentKey"))[0].operationKey,
-                            "author": currentUser.username,
-                            "dateCreated": date,
-                            "expiresAt": expDate
+                            "jobCategory": $("#jobCategory").val()
                         });
                         ajaxGetCall('https://api.backand.com:443/1/objects/ReferOffer/'+parseInt(params), 'put', newItem,
                         function(error){

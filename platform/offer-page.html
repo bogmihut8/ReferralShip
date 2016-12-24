@@ -77,7 +77,10 @@
                 function(error){alert(JSON.stringify(error))}, 
                 function(data){
                     if(data){
-                        $(".offer-page-control").html('<button type="button" class="btn btn-warning edit-offer">Edit&nbsp;&nbsp;<i class="icon-edit"></i></button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger delete-offer">Delete&nbsp;&nbsp;<i class="icon-ban-circle"></i></button>');
+                        $(".offer-page-control").html('<button type="button" class="btn btn-warning edit-offer">Edit&nbsp;&nbsp;<i class="icon-edit"></i></button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger delete-offer">Delete&nbsp;&nbsp;<i class="icon-ban-circle"></i></button><br>');
+                       // if(myrecord.expiresAt din getReferOffer <= dateNow){
+                            $(".offer-page-control").append('<button type="button" class="btn btn-warning reactivate-offer">Re-activate offer&nbsp;&nbsp;<i class="icon-refresh"></i></button>');    
+                       // }
                         $(".interested-message").hide();
                         $(".edit-offer").on("click", function(){
                             window.location.replace('/platform/#offer-page-edit:'+parseInt(params));
@@ -143,6 +146,7 @@
                 )
                 $(".send-message").on("click", function(){
                     var email = "<div style='max-width:600px'><table border='0' cellpadding='0' cellspacing='0' class='body' style='width:100%'><tr style='font-family:sans-serif'><td style='font-size:14px'></td><td class='container' style='font-size:14px'><div class='content'><span class='preheader' style='display:none'>This is preheader text. Some clients will show this text as a preview.</span><table class='main' style='width:100%'><tbody style='background:#fff'><tr style='background-color: #ec9400'><td> <p style='text-align:center'><span style='font-size:30px'><span style='color: white'>ReferralShip</span></span></p></td></tr><tr><td class='wrapper' style='padding:20px'><table border='0' cellpadding='0' cellspacing='0' style='width:100%'><tr><td style='font-size:14px'><p>"+tinymce.activeEditor.getContent()+"</p></td></tr></table></td></tr></tbody></table> <div style='height:10px'> </div><div class='footer' style='text-align:center'><table border='0' cellpadding='0' cellspacing='0' style='width:100%'><tr style=''><td class='content-block' style='color:#999999'><span class='apple-link' style='text-align:center'><a href='http://referralship.net' style='color:#999'>Login to your account</a></span><br></td></tr><tr><td class='content-block powered-by' style='font-size:14px'>Powered by <span style='color:#999999'>Referralship</span>.</td></tr></table></div></div></td><td style='font-size:14px'></td></tr></table></div>";
+                    email = email.replace(/&nbsp;/g, "");
                     var mailData = JSON.stringify({
                       "to": myRecord[0].author,
                       "message": encodeURI(email)
@@ -157,6 +161,18 @@
                         data: mailData,
                         dataType: 'json',
                         cache: false,
+                        success: function(data){
+                            var errorString = "The message has been sent"
+                            swal({
+                              title: "Success!",
+                              text: errorString,
+                              type: "success",
+                              confirmButtonText: "Close",
+                              allowOutsideClick: true,
+                              allowEscapeKey: true
+                            });
+                            setTimeout(function() {window.location.reload();}, 3000);
+                        }
                     });
                 });
             }

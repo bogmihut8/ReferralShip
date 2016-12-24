@@ -1332,6 +1332,25 @@ width: 11px;}
     border: 1px solid #ddd;
     
 }
+
+#cv-attach{
+    line-height: 0;
+    margin-bottom:0;
+}
+.attach-cv-div{
+    margin-top:10px;
+}
+
+.expired-ribbon{
+    width: 100px;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+}
+
+#myoffersList .widget{
+    overflow:inherit;
+}
 /*------------------------------------------------------------------
 [8. Miscellaneous]
 */
