@@ -37,6 +37,7 @@
               <p style="color:red">Something went wrong. Please try again!</p>
         </div>
         <button type="button" class="login__submit" id="login_button">Sign in</button>
+        <p class="login__signup">Forgotten password? &nbsp;<a id="reset">Reset here</a>
         <p class="login__signup">Don't have an account? &nbsp;<a id="signup">Sign up</a></p>
       </div>
       <div class="signup_form hide">
@@ -73,6 +74,15 @@
         <button type="button" class="login__submit" id="submit_button">Sign up</button>
         <p class="login__signup">Already have an account? &nbsp;<a id="login">Login Here</a></p>
 
+      </div>
+      <div class="reset_password_form hide">
+        <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input type="text" class="login__input name" placeholder="Email" id="reset_password_email"/>
+        </div>
+        <button type="button" class="login__submit" id="reset_button">Request password rest</button>
       </div>
     </div>
     <div class="app">

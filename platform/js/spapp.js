@@ -9,6 +9,7 @@
     var $page = $("section#" + pageName);
     if( $page.length == 0 ) {
       console.warn("section with id=%s not found!",pageName);
+      window.location.replace("/platform/index.html")
       return;
     }
     var ph = pageHandlers[pageName];

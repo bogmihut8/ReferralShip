@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Platform | ReferralShip</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+        rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="css/sweetalert.css">
+<link href="css/pages/dashboard.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container"><a class="brand" href="index.html"><img src="img/round.png">ReferralShip </a><div class="loader hidden"></div>
+      <!--/.nav-collapse --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /navbar-inner --> 
+</div>
+
+<!-- /subnavbar -->
+<div class="main">
+    <div class="main-inner">
+        <div class="container" id="mainSection">
+            <div class="row">
+                <div class="start"><br><br>
+                    <div id="offer" class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /main -->
+<!-- /extra -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span12"> &copy; 2017 ReferralShip</div>
+        <!-- /span12 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /footer-inner --> 
+</div>
+<!-- /footer --> 
+<!-- Le javascript
+================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+<script src="js/jquery-1.7.2.min.js"></script> 
+<script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+<script>
+    $(document).ready(function(){
+        function ajaxGetCall(url, errorCallback, successCallback){
+            $.ajax({
+                url: url,
+                async: false,
+                type: 'get',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('AnonymousToken', '005b72b3-9f1f-452e-8a61-3b9666c33caf');
+                },
+                data: {},
+                dataType: 'json',
+                cache: false,
+                error: errorCallback,
+                success: successCallback
+            });
+        }
+        ajaxGetCall('https://api.backand.com/1/query/data/getReferOffer?parameters=%7B%22id%22:%22'+window.location.hash.split(':')[1]+'%22%7D', function(error){alert(JSON.stringify(error))}, 
+                function(data){
+                    myRecord = data;
+                    expireDate = myRecord[0].expiresAt;
+                    if(typeof myRecord[0] == 'undefined'){
+                        window.location.replace('/404');
+                    }
+                    
+                    if(myRecord[0].deletedAt){
+                        window.location.replace('/404');
+                    }
+                    else{
+                        var date = new Date(myRecord[0].dateCreated);
+                        if(!myRecord[0].procent)
+                            var procentTag = "";
+                        else
+                            var procentTag = "<div class='tag span2 orange'>"+myRecord[0].procent+"% Bonus</div>";
+                        
+                        $("#offer").append("<div class='span12'><p><i class='icon-time'></i>&nbsp;<span class='timeago'>"+$.timeago(date)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author: "+myRecord[0].author+"</p><h1>"+myRecord[0].title+"</h1><div class='job-facts row'>"+procentTag+"<div class='tag span2'>"+myRecord[0].jobType+"</div><div class='tag span2'>"+myRecord[0].jobLevel+"</div><div class='tag span3'>"+myRecord[0].jobCategory+"</div></div><p>"+myRecord[0].content+"</p><h4><b>Company: </b>"+myRecord[0].company+"</h4><h4><b>Location: </b>"+myRecord[0].city+", "+myRecord[0].country+"</h4></div><br>Interested in this offer or you want to look for other?&nbsp;&nbsp;&nbsp;<a href='/' class='btn btn-warning'>Create account or login</button>");
+                    }
+                });
+    });
+</script>
+</body>
+</html>

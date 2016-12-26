@@ -134,5 +134,24 @@ $(function () {
             });
         }, true, true);
     });
+    $("#reset_button").click(function(){
+        var button = this;
+        var requestResetData = JSON.stringify({
+          "appName": "referralship",
+          "username": $('#reset_password_email').val()
+        });
+        var url = backand.options.url + '/1/user/requestResetPassword';
+        $.ajax({
+            url: url,
+            async: false,
+            type: 'post',
+            data: requestResetData,
+            success: function(data){
+                $(button).addClass("processing");
+                swal("Success!", "A message has been sent to your e-mail. Click on the link and reset your password! You will be redirected to login in 5 seconds", "success");
+                setTimeout(function() {window.location.reload();}, 5000);
+            }
+        });
+    });
 
 });

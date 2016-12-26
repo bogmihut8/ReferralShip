@@ -1,3 +1,4 @@
+<img src="img/texture.png" id="background-image">
 <div class="row">
     <div class="start account-details row" style="width:100%">
         <h1>Account details</h1>
@@ -64,6 +65,9 @@
     </div>
 </div>
 <script>
+    if(window.location.href.indexOf("index.html#") == -1) {
+       window.location.replace('/platform/index.html');
+    }
     $(document).ready(function(){
         function ajaxGetCall(url, type, data, errorCallback, successCallback){
             $.ajax({
@@ -80,6 +84,11 @@
                 success: successCallback
             });
         }
+        
+        $(".mainnav li").removeClass("active");
+        var page = window.location.hash;
+        $(".mainnav a[href='"+page+"']").parent().addClass("active");        
+        
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var nameObj = JSON.parse(localStorage.getItem("firstAndLastName"));
         $("#email").val(currentUser.username);

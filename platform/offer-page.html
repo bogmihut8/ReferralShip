@@ -2,6 +2,9 @@
     <div class="start">
         <div id="offer" class="row">
         </div><br>
+        <div class="form-group">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=/platform/public%23offer%3A" target="_blank" class='btn btn-primary fb-share'><i class="icon-facebook-sign"></i>&nbsp;&nbsp;&nbsp;Share on Facebook</a>
+        </div><br>
         <div class="form-group offer-page-control">
         </div><br>
         
@@ -17,9 +20,13 @@
                 </div>
             </div>
         </div>
+        <br>
     </div>
 </div>
 <script>
+    if(window.location.href.indexOf("index.html#") == -1) {
+       window.location.replace('/platform/index.html');
+    }
     $(document).ready(function(){
         function ajaxGetCall(url, errorCallback, successCallback){
             $.ajax({
@@ -50,12 +57,15 @@
               ],
               toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link'
         });
+        var expireDate = "";
         window.app.page("offer-page", function(){
             return function(params) {
+                $('.fb-share').attr("href", 'https://www.facebook.com/sharer/sharer.php?u=http%3A//development.referralship.net/platform/public.html%23offer%3A'+parseInt(params))
                 ajaxGetCall('https://api.backand.com/1/query/data/getReferOffer?parameters=%7B%22id%22:%22'+parseInt(params)+'%22%7D', function(error){alert(JSON.stringify(error))}, 
                 function(data){
                     myRecord = data;
-                    
+                    $(".fb-share").attr("href", $(".fb-share").attr("href")+"&title="+myRecord[0].title+"&caption="+myRecord[0].company+" - "+myRecord[0].city+", "+myRecord[0].country)
+                    expireDate = myRecord[0].expiresAt;
                     if(typeof myRecord[0] == 'undefined'){
                         window.location.replace('/404');
                     }
@@ -70,7 +80,7 @@
                         else
                             var procentTag = "<div class='tag span2 orange'>"+myRecord[0].procent+"% Bonus</div>";
                         
-                        $("#offer").append("<div class='span12'><p><i class='icon-time'></i>&nbsp;<span class='timeago'>"+$.timeago(date)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author: "+myRecord[0].author+"</p><h1>"+myRecord[0].title+"</h1><div class='job-facts row'>"+procentTag+"<div class='tag span2'>"+myRecord[0].jobType+"</div><div class='tag span2'>"+myRecord[0].jobLevel+"</div><div class='tag span3'>"+myRecord[0].jobCategory+"</div></div><p>"+myRecord[0].content+"</p><h4><b>Company: </b>"+myRecord[0].company+"</h4><h4><b>Location: </b>"+myRecord[0].city+", "+myRecord[0].country+"</h4></div>");
+                        $("#offer").append("<div class='span12'><p class='offer-page-header row'><span class='timeago span2'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago span3'><i class='icon-map-marker'></i>&nbsp;"+myRecord[0].city+", "+myRecord[0].country+"</span><span class='timeago span7'><i class='icon-building'></i>&nbsp;"+myRecord[0].company+"</span></p><h1>"+myRecord[0].title+"</h1><div class='job-facts row'>"+procentTag+"<div class='tag span2'>"+myRecord[0].jobType+"</div><div class='tag span2'>"+myRecord[0].jobLevel+"</div><div class='tag span3'>"+myRecord[0].jobCategory+"</div></div><p>"+myRecord[0].content+"</p></div>");
                     }
                 });
                 ajaxGetCall('https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=allowEdit&parameters=%7B%22operationKey%22:%22'+oKey+'%22%7D',
@@ -78,12 +88,13 @@
                 function(data){
                     if(data){
                         $(".offer-page-control").html('<button type="button" class="btn btn-warning edit-offer">Edit&nbsp;&nbsp;<i class="icon-edit"></i></button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger delete-offer">Delete&nbsp;&nbsp;<i class="icon-ban-circle"></i></button><br>');
-                       // if(myrecord.expiresAt din getReferOffer <= dateNow){
+                        var dateNow = new Date();
+                        if(Date.parse(new Date(expireDate)) <= Date.parse(dateNow)){
                             $(".offer-page-control").append('<button type="button" class="btn btn-warning reactivate-offer">Re-activate offer&nbsp;&nbsp;<i class="icon-refresh"></i></button>');    
-                       // }
+                        }
                         $(".interested-message").hide();
                         $(".edit-offer").on("click", function(){
-                            window.location.replace('/platform/#offer-page-edit:'+parseInt(params));
+                            window.location.replace('/platform/index.html#offer-page-edit:'+parseInt(params));
                         });
                         $(".delete-offer").on("click", function(){
                             var date = new Date();
@@ -95,7 +106,7 @@
                               confirmButtonText: "Yes, delete it!",
                               cancelButtonText: "No, cancel!",
                               closeOnConfirm: false,
-                              closeOnCancel: false,
+                              closeOnCancel: true,
                               allowOutsideClick: true,
                               allowEscapeKey: true
                             },
@@ -126,6 +137,61 @@
                                     },
                                     success: function(data){
                                         var errorString = "The offer has been deleted"
+                                        swal({
+                                          title: "Success!",
+                                          text: errorString,
+                                          type: "success",
+                                          confirmButtonText: "Close",
+                                          allowOutsideClick: true,
+                                          allowEscapeKey: true
+                                        });
+                                        window.location.replace("/platform/index.html#myoffers")
+                                    }
+                                });
+                              }
+                            });
+                        });
+                        $(".reactivate-offer").on("click", function(){
+                            var date = new Date();
+                            swal({
+                              title: "Are you sure you want to reactivate this offer?",
+                              type: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#DD6B55",
+                              confirmButtonText: "Yes, reactivate it!",
+                              cancelButtonText: "No, cancel!",
+                              closeOnConfirm: false,
+                              closeOnCancel: true,
+                              allowOutsideClick: true,
+                              allowEscapeKey: true
+                            },
+                            function(isConfirm){
+                              if (isConfirm) {
+                                $.ajax({
+                                    url: 'https://api.backand.com:443/1/objects/ReferOffer/' + parseInt(params),
+                                    async: false,
+                                    type: 'put',
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader('Authorization', currentUser.token_type +' '+ currentUser.access_token);
+                                    },
+                                    data: JSON.stringify({
+                                        "expiresAt": new Date(new Date(date).setMonth(date.getMonth()+1))
+                                    }),
+                                    dataType: 'json',
+                                    cache: false,
+                                    error: function(error){
+                                        var errorString = error.responseJSON;
+                                        swal({
+                                          title: "Error!",
+                                          text: errorString,
+                                          type: "error",
+                                          confirmButtonText: "Close",
+                                          allowOutsideClick: true,
+                                          allowEscapeKey: true
+                                        });
+                                    },
+                                    success: function(data){
+                                        var errorString = "The offer has been reactivated"
                                         swal({
                                           title: "Success!",
                                           text: errorString,

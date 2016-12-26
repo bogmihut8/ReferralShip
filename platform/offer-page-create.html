@@ -120,6 +120,9 @@
     </div>
 </div>
 <script>
+    if(window.location.href.indexOf("index.html#") == -1) {
+       window.location.replace('/platform/index.html');
+    }
     $(document).ready(function(){
         function ajaxGetCall(url, type, data, errorCallback, successCallback){
             $.ajax({

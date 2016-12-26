@@ -120,6 +120,15 @@ input, button {
     padding: 1.5rem 2.5rem;
     text-align: center;
 }
+.reset_password_form {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+}
 .login__row {
   height: 5rem;
   padding-top: 1rem;
@@ -145,6 +154,9 @@ input, button {
 .extend{
     height: 53rem!important;
 }
+.reduce{
+    height: 29rem!important;
+}
 .login_error{
     position: relative;
     font-size: 16px;
@@ -164,7 +176,7 @@ input, button {
   position: relative;
   width: 100%;
   height: 4rem;
-  margin: 5rem 0 2.2rem;
+  margin: 5rem 0 1.2rem;
   color: rgba(255, 255, 255, 0.8);
   background: #f49542;
   font-size: 1.5rem;

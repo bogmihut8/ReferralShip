@@ -24,6 +24,7 @@ $(document).ready(function() {
         opacity: 0
       }, 100, function() {
         $(".login__form").addClass("hide");
+        $(".reset_password_form").addClass("hide");
         $( ".demo" ).animate({
             opacity: 1
           }, 100, function() {
@@ -36,12 +37,27 @@ $(document).ready(function() {
       $( ".demo" ).animate({
         opacity: 0
       }, 100, function() {
-        $(".login__form").removeClass("hide");
+        $(".signup_form").addClass("hide");
+        $(".reset_password_form").addClass("hide");
         $( ".demo" ).animate({
             opacity: 1
           }, 100, function() {
-                $(".demo").removeClass("extend");
-                $(".signup_form").addClass("hide");
+                $(".demo").removeClass("extend").removeClass("reduce");
+                $(".login__form").removeClass("hide");
+          });
+      });
+  });
+  $("#reset").on("click", function(){      
+      $( ".demo" ).animate({
+        opacity: 0
+      }, 100, function() {
+        $(".login__form").addClass("hide");
+        $(".signup_form").addClass("hide");
+        $( ".demo" ).animate({
+            opacity: 1
+          }, 100, function() {
+                $(".demo").removeClass("extend").addClass("reduce");
+                $(".reset_password_form").removeClass("hide");
           });
       });
   });
