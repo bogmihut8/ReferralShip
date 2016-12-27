@@ -224,7 +224,7 @@
                               allowOutsideClick: true,
                               allowEscapeKey: true
                             });
-                            window.location.replace("/platform/#offer-page:"+parseInt(params))
+                            setTimeout(function() {window.location.replace("/platform/#offer-page:"+parseInt(params));}, 3000);
                         })     
                     })
                 })

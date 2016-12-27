@@ -13,7 +13,7 @@
     
             <div class="message-form row">
                 <div class="form-group span7">
-                  <textarea class="form-control span6" rows="5" id="comment" placeholder="Your message..."></textarea>
+                  <textarea class="form-control span6 hide" rows="5" id="comment" placeholder="Your message..."></textarea>
                 </div>
                 <div class="form-group span12">
                     <button type="button" class="btn btn-warning send-message">Send message</button>
@@ -27,6 +27,7 @@
     if(window.location.href.indexOf("index.html#") == -1) {
        window.location.replace('/platform/index.html');
     }
+    
     $(document).ready(function(){
         function ajaxGetCall(url, errorCallback, successCallback){
             $.ajax({
@@ -46,20 +47,26 @@
         
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var oKey = JSON.parse(localStorage.getItem("currentKey"))[0].operationKey;
+        tinymce.remove();
         tinymce.init({  
-            selector: 'textarea',
-              height: 300,
-              menubar: false,
-              plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table contextmenu paste code'
-              ],
-              toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link'
+          selector: '#comment',
+          height: 300,
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code'
+          ],
+          toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+          init_instance_callback : function(editor) {
+            $('#comment').addClass("show")
+          }
         });
+        
         var expireDate = "";
         window.app.page("offer-page", function(){
             return function(params) {
+                $(".loading-text").addClass("hide");
                 $('.fb-share').attr("href", 'https://www.facebook.com/sharer/sharer.php?u=http%3A//development.referralship.net/platform/public.html%23offer%3A'+parseInt(params))
                 ajaxGetCall('https://api.backand.com/1/query/data/getReferOffer?parameters=%7B%22id%22:%22'+parseInt(params)+'%22%7D', function(error){alert(JSON.stringify(error))}, 
                 function(data){
@@ -78,9 +85,9 @@
                         if(!myRecord[0].procent)
                             var procentTag = "";
                         else
-                            var procentTag = "<div class='tag span2 orange'>"+myRecord[0].procent+"% Bonus</div>";
+                            var procentTag = "<span class='tag orange'>"+myRecord[0].procent+"% Bonus</span>";
                         
-                        $("#offer").append("<div class='span12'><p class='offer-page-header row'><span class='timeago span2'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago span3'><i class='icon-map-marker'></i>&nbsp;"+myRecord[0].city+", "+myRecord[0].country+"</span><span class='timeago span7'><i class='icon-building'></i>&nbsp;"+myRecord[0].company+"</span></p><h1>"+myRecord[0].title+"</h1><div class='job-facts row'>"+procentTag+"<div class='tag span2'>"+myRecord[0].jobType+"</div><div class='tag span2'>"+myRecord[0].jobLevel+"</div><div class='tag span3'>"+myRecord[0].jobCategory+"</div></div><p>"+myRecord[0].content+"</p></div>");
+                        $("#offer").append("<div class='span12'><div class='offer-page-header'><span class='timeago offer-info-header'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago offer-info-header'><i class='icon-map-marker'></i>&nbsp;"+myRecord[0].city+", "+myRecord[0].country+"</span><span class='timeago offer-info-header'><i class='icon-building'></i>&nbsp;"+myRecord[0].company+"</span></div><h1 style='margin-top:15px; text-align:center'>"+myRecord[0].title+"</h1><div class='job-facts'>"+procentTag+"<span class='tag'>"+myRecord[0].jobType+"</span><span class='tag'>"+myRecord[0].jobLevel+"</span><span class='tag'>"+myRecord[0].jobCategory+"</span></div><p>"+myRecord[0].content+"</p></div>");
                     }
                 });
                 ajaxGetCall('https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=allowEdit&parameters=%7B%22operationKey%22:%22'+oKey+'%22%7D',

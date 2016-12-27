@@ -1296,20 +1296,26 @@ width: 11px;}
     height: 35px;
     margin-left:60px;
 }
+.job-facts{
+    text-align: center;
+}
 .job-facts .tag{
     text-align: center;
-    background-color:white;
-    margin-bottom:10px;
+    background-color: white;
+    margin-bottom: 10px;
     border-radius: 5px;
-    padding-top:5px;
-    padding-bottom:5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
     -webkit-transition: box-shadow 0.2s ease-in-out;
     -moz-transition: box-shadow 0.2s ease-in-out;
-    -o-transition: box-shadow 0.2s ease-in-out; 
+    -o-transition: box-shadow 0.2s ease-in-out;
     border: 1px solid #ddd;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 5px;
 }
 .job-facts .tag.orange, .job-facts-offer-list .tag.orange{
     background-color: #ec9400!important;
@@ -1374,12 +1380,39 @@ width: 11px;}
 .offer-page-header{
     font-size:16px;
     color:#666;
+    text-align:center;
 }
-
+input[type="file"]{
+    line-height: 0;
+    margin-top: 5px; 
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
 .offer-page-header-list{
     color:#666!important;
     font-size:14px;
     margin-bottom:15px;
+}
+
+.offer-page-header-list .offer-info-header{
+    margin-left:0;
 }
 
 #background-image{
@@ -1388,6 +1421,21 @@ width: 11px;}
     width: 200px;
     margin-top: -23px;
     opacity: 0.3;
+}
+
+.offer-info-header{
+    margin-bottom:15px;
+    margin-left:25px;
+    padding-right:25px;
+}
+
+.loading-text{    
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    font-style: italic;
+
 }
 /*------------------------------------------------------------------
 [8. Miscellaneous]
@@ -1450,6 +1498,13 @@ color: #333;
 */
 
 @media (max-width: 767px) {
+    .offer-info-header{
+        display: block;
+        margin-right:0;
+    }
+    .job-facts .tag{
+        display: block;
+    }
     .start, .welcome, .image-header{
         margin-left:0;
     }
@@ -1607,5 +1662,10 @@ color: #333;
     .about_header{
         height: 130px!important;
         background-size: contain!important;
+    }
+}
+@media (min-width: 768px) {
+    .expire-info{
+        margin-left:60px;
     }
 }

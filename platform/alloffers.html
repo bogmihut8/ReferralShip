@@ -56,6 +56,7 @@
         $(".mainnav li").removeClass("active");
         var page = window.location.hash;
         $(".mainnav a[href='"+page+"']").parent().addClass("active");
+        $(".loading-text").addClass("hide");
         
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var myRecords = {};
@@ -72,7 +73,10 @@
             else
                 var procentTag = "<div class='tag span2 orange'>"+myRecords[i].procent+"% Bonus</div>";
             
-            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><p class='offer-page-header-list row'><span class='timeago span2'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago span3'><i class='icon-map-marker'></i>&nbsp;"+myRecords[i].city+", "+myRecords[i].country+"</span><span class='timeago span6'><i class='icon-building'></i>&nbsp;"+myRecords[i].company+"</span></p><h3>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'>"+procentTag+"<div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content'><div class='offer-page-header-list'><span class='timeago offer-info-header'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago offer-info-header'><i class='icon-map-marker'></i>&nbsp;"+myRecords[i].city+", "+myRecords[i].country+"</span><span class='timeago offer-info-header'><i class='icon-building'></i>&nbsp;"+myRecords[i].company+"</span></div><h3 style='margin-top:15px'>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'>"+procentTag+"<div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
         }
+        $(document).on("click", "#allOffers .offer-more-details", function(){
+            $(".loading-text").removeClass("hide");
+        });
     });
 </script>

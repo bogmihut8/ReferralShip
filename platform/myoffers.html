@@ -35,12 +35,14 @@
         $(".mainnav li").removeClass("active");
         var page = window.location.hash;
         $(".mainnav a[href='"+page+"']").parent().addClass("active"); 
+        $(".loading-text").addClass("hide");
         
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var oKey = JSON.parse(localStorage.getItem("currentKey"))[0].operationKey;
         var myRecords = {};
        
         $("#offer-page-create").on("click", function(){
+            $(".loading-text").removeClass("hide");
             window.location.replace("#offer-page-create")
         });
         ajaxGetCall('https://api.backand.com/1/query/data/getMyReferOffers?parameters=%7B%22oKey%22:%22'+oKey+'%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
@@ -60,7 +62,10 @@
             else
                 var expired="";
 
-            $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content'>"+expired+"<p class='offer-page-header-list row'><span class='timeago span2'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago span3'><i class='icon-map-marker'></i>&nbsp;"+myRecords[i].city+", "+myRecords[i].country+"</span><span class='timeago span6'><i class='icon-building'></i>&nbsp;"+myRecords[i].company+"</span></p><h3>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'>"+procentTag+"<div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><h4><b>Company: </b>"+myRecords[i].company+"</h4><h4><b>Location: </b>"+myRecords[i].city+", "+myRecords[i].country+"</h4><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
+            $("#myoffersList").append("<div class='span12'><div class='widget'><div class='widget-content'>"+expired+"<div class='offer-page-header-list'><span class='timeago offer-info-header'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago offer-info-header'><i class='icon-map-marker'></i>&nbsp;"+myRecords[i].city+", "+myRecords[i].country+"</span><span class='timeago offer-info-header'><i class='icon-building'></i>&nbsp;"+myRecords[i].company+"</span></div><h3 style='margin-top:15px'>"+myRecords[i].title+"</h3><div class='job-facts-offer-list row'>"+procentTag+"<div class='tag span2'>"+myRecords[i].jobType+"</div><div class='tag span2'>"+myRecords[i].jobLevel+"</div><div class='tag span3'>"+myRecords[i].jobCategory+"</div></div><a href='#offer-page:"+myRecords[i].id+"' class='btn btn-warning offer-more-details' data-id='"+myRecords[i].id+"'>More details &nbsp; <i class='icon-chevron-right'></i></a></div></div></div>")
         }
+        $(document).on("click", "#myoffersList .offer-more-details", function(){
+            $(".loading-text").removeClass("hide");
+        });
     });
 </script>

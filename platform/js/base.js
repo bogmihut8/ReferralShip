@@ -18,6 +18,7 @@ $(function () {
 		}
 		
 	});
+    
 	var currentUser = JSON.parse(localStorage.getItem("currentUser"));
 	var firstAndLastName = JSON.parse(localStorage.getItem("firstAndLastName"));
     var accessToken = currentUser.access_token;
@@ -42,12 +43,17 @@ $(function () {
         localStorage.clear();
         window.location.replace("/");
     });
-    
-	$(document).on("click", ".mainnav li a", function(){
-        $(".mainnav li").removeClass("active");
-        var page = $(this).attr("id");
-        $(this).parent().addClass("active");
-        $("#mainSection section").empty();
+    $(".loading-text").removeClass("hide");
+	$(document).on("click", ".mainnav li a", function(e){
+        if($(this).parent().hasClass('active'))
+            e.preventDefault();
+        else{
+            $(".loading-text").removeClass("hide");
+            $(".mainnav li").removeClass("active");
+            var page = $(this).attr("id");
+            $(this).parent().addClass("active");
+            $("#mainSection section").empty();
+        }
     });
     
     window.onpopstate = function(){

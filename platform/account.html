@@ -34,6 +34,16 @@
                 </div>
 
                 <br /><br />
+                <div class="control-group">
+                    <label class="control-label" for="fileUpload">Upload your CV:</label>
+                    <div class="controls">
+                        <span class="btn btn-warning btn-file">
+                            Browse files <input type="file" id="fileUpload">
+                        </span>
+                        <a href='#'>You cv</a>
+                    </div> <!-- /controls -->				
+                </div>
+                <br /><br />
 
                 <div class="control-group">											
                     <label class="control-label" for="password1">Old Password</label>
@@ -87,7 +97,8 @@
         
         $(".mainnav li").removeClass("active");
         var page = window.location.hash;
-        $(".mainnav a[href='"+page+"']").parent().addClass("active");        
+        $(".mainnav a[href='"+page+"']").parent().addClass("active");
+        $(".loading-text").addClass("hide");
         
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         var nameObj = JSON.parse(localStorage.getItem("firstAndLastName"));
