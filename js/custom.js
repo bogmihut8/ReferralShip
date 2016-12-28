@@ -150,6 +150,19 @@ $(function () {
                 $(button).addClass("processing");
                 swal("Success!", "A message has been sent to your e-mail. Click on the link and reset your password! You will be redirected to login in 5 seconds", "success");
                 setTimeout(function() {window.location.reload();}, 5000);
+            },
+            error: function(err){
+                var errorString = err.responseText;
+                if(typeof err.responseJSON === 'object')
+                    errorString = error.responseJSON.error_description;
+                swal({
+                  title: "Error!",
+                  text: errorString,
+                  type: "error",
+                  confirmButtonText: "Close",
+                  allowOutsideClick: true,
+                  allowEscapeKey: true
+                });
             }
         });
     });

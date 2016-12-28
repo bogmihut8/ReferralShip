@@ -25,13 +25,13 @@
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="password" class="login__input pass" id="reset_password" placeholder="Password"/>
+          <input type="password" class="login__input pass" id="reset_password" placeholder="Password" onkeyup = "if (event.keyCode == 13) document.getElementById('reset_button').click()"/>
         </div>
         <div class="login__row">
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="password" class="login__input pass" id="repeat_reset_password" placeholder="Repeat Password"/>
+          <input type="password" class="login__input pass" id="repeat_reset_password" placeholder="Repeat Password" onkeyup = "if (event.keyCode == 13) document.getElementById('reset_button').click()"/>
         </div>
         <button type="button" class="login__submit" id="reset_button">Reset my password</button>
       </div>      
@@ -59,6 +59,19 @@
                     success: function(data){
                         swal("Success!", "Your password was reseted. You will be redirected to login page in 3 seconds.", "success");
                         setTimeout(function() {window.location.replace('/');}, 3000);
+                    },
+                    error: function(err){
+                        var errorString = err.responseText;
+                        if(typeof err.responseJSON === 'object')
+                            errorString = error.responseJSON.error_description;
+                        swal({
+                          title: "Error!",
+                          text: errorString,
+                          type: "error",
+                          confirmButtonText: "Close",
+                          allowOutsideClick: true,
+                          allowEscapeKey: true
+                        });
                     }
                 });
             }

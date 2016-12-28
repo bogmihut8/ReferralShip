@@ -418,7 +418,7 @@ a{
 
 
 .widget-content {
-	padding: 20px 15px 15px;
+	padding: 15px 15px 15px;
 	
 	background: #FFF;
 	
@@ -428,6 +428,11 @@ a{
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+}
+
+.widget-content.orange-bg{
+    background-color: #f5a732;
+    color: white;
 }
 
 .widget-header+.widget-content {
@@ -1246,6 +1251,7 @@ width: 11px;}
 }
 .right-display{
     float: right;
+    margin-top: 5px;
 }
 
 .increased-font-size{
@@ -1268,11 +1274,55 @@ width: 11px;}
 .account-details .form-horizontal .controls{
     margin-left: 0;
 }
+
+/* box ------------------------------------------------------ */
+
+#box {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  -webkit-backface-visibility: hidden; /* fixes flashing */
+    background: hsl(37, 100%, 60%) radial-gradient( hsl(38, 100%, 46%), hsl(38, 100%, 50%));
+}
+
+
+/* flashlight ------------------------------------------------------ */
+@keyframes fadeIn { 
+  from { opacity: 0; } 
+}
+#flashlight {
+  color: hsl(29,100%,94%);
+  perspective: 80px;
+  outline: none;
+    margin-top:25px;
+    animation: fadeIn 3s alternate;
+    cursor: default;
+}
+
+
+/* flash ------------------------------------------------------ */
+
+#flash {
+  display: inline-block;
+  text-shadow: #bbb 0 0 1px, #fff 0 -1px 2px, #fff 0 -3px 2px, rgba(0,0,0,0.8) 0 10px 25px;
+  transition: margin-left 0.3s cubic-bezier(0, 1, 0, 1);
+        font-size: 40px;
+    font-family: sans-serif;
+}
+
+
+/* light ------------------------------------------------------ */
+
+#light {
+  display: inline-block;
+  text-shadow: #111 0 0 1px, rgba(255,255,255,0.1) 0 1px 3px;
+}
+
 .dashboard .image-header{
     background-image: url('../../images/dashboard.jpg');
     background-position: center;
     background-size: cover;
-    height:150px;
+    height:100px;
     padding-top: 20px;
 }
 .dashboard .image-header .responsive-dashboard{
@@ -1283,9 +1333,7 @@ width: 11px;}
     background-repeat: no-repeat;
     margin-left:0;
 }
-.dashboard .span6 .widget-content{
-    min-height: 150px;
-}
+
 .dashboard .span6 .widget-content p{
     margin-top:15px;
     margin-bottom:25px;
@@ -1437,6 +1485,20 @@ input[type="file"]{
     font-style: italic;
 
 }
+.latest-offers tbody tr{
+    cursor: pointer;
+}
+.latest-offers tbody tr td{
+    padding: 0;
+}
+.latest-offers tbody tr td a {
+  display: block;
+  height:100%;
+  width:100%;
+  color: #333;
+  text-decoration: none;
+    padding: 8px;
+}
 /*------------------------------------------------------------------
 [8. Miscellaneous]
 */
@@ -1498,6 +1560,9 @@ color: #333;
 */
 
 @media (max-width: 767px) {
+    .hide-td{
+        display:none;
+    }
     .offer-info-header{
         display: block;
         margin-right:0;
@@ -1663,9 +1728,17 @@ color: #333;
         height: 130px!important;
         background-size: contain!important;
     }
+    #flash{
+        font-size:25px;
+    }
 }
 @media (min-width: 768px) {
     .expire-info{
         margin-left:60px;
+    }
+}
+@media (max-width: 580px) {
+    .hide-td-smaller{
+        display: none;
     }
 }

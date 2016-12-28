@@ -1,6 +1,8 @@
 <div class="row dashboard">
-    <div class="row image-header">
-        
+    <div class="row image-header" id="box">
+          <p id="flashlight">
+            <span id="flash">Search. Post. Win</span>
+          </p>
 <!--
         <div class="span12 responsive-dashboard">
             &nbsp;
@@ -9,13 +11,25 @@
     </div>
     <div class="welcome">
         <br>
-        <p class="increased-font-size">Welcome to ReferralShip, a platform on which employees can use their employer's referral program, post offers and get in contact with individuals that are looking for a job, generating a win-win-win situation. Take a good look, get used to the interface and start posting/seeking job offers right now!</p>
+        <p class="increased-font-size">Welcome to ReferralShip, a platform where any individual can post job offers from their current company and job seekers can apply through them, generating a win-win-win situation. Candidates gain more trust, the chance to have an interview increases significantly and also can , while posters can earn money from their employee referral program. Take a good look, get used to the interface and start posting/seeking job offers right now!</p>
     </div>
-    <div class="span6">
+    <div class="span12">
         <div class="widget">
 	       <div class="widget-content">		
-               <h2><i class="icon-list-alt"></i>&nbsp;&nbsp;Find offers</h2>
-               <p>Check out the offers list, get in touch with the author, discuss further about the vacant position, company or benefits and get your dream job. </p>
+               <h2><i class="icon-list-alt"></i>&nbsp;&nbsp;Newest offers</h2>
+               <table class="table table-hover latest-offers">
+                <thead>
+                  <tr>
+                    <th class="hide-td-smaller">Added</th>
+                    <th>Title</th>
+                    <th class="hide-td">Type</th>
+                    <th>Bonus</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
                <a href="#alloffers" class="btn btn-warning right-display dashboard-control">View all offers</a>
             </div> <!-- /widget-content -->		
 	   </div>   
@@ -23,27 +37,27 @@
     <div class="span6">
         <div class="widget">
 	       <div class="widget-content">		
-               <h2><i class="icon-list"></i>&nbsp;&nbsp;Create your offers</h2>
-               <p>You can access your created offers right here, create more, edit or delete the existing ones. Hit "More details" to see a preview and make sure all the informations are correct.</p>
-               <a href="#myoffers" class="btn btn-warning right-display myoffers dashboard-control">Create offers</a>
-            </div> <!-- /widget-content -->		
-	   </div>   
-    </div>
-    <div class="span6">
-        <div class="widget">
-	       <div class="widget-content">		
                <h2><i class="icon-user"></i>&nbsp;&nbsp;Edit your account</h2>
-               <p>You can change your password or edit information like your name, birthday, gender, and phone number associated with your account from here. </p>
+               <p>Change your password, edit information or upload your CV from here. </p>
                <a href="#account" class="btn btn-warning right-display dashboard-control">Edit account details</a>	
             </div> <!-- /widget-content -->		
 	   </div>   
     </div>
-    <div class="span6">
+        <div class="span6">
         <div class="widget">
 	       <div class="widget-content">		
-               <h2><i class="icon-info-sign"></i>&nbsp;&nbsp;Find out more</h2>
-               <p>Read more information about employee referral program, the advantages, the company perspective and a lot more interesting info. </p>	   	
-               <a href="#about" class="btn btn-warning right-display dashboard-control">Learn more</a>	
+               <h2><i class="icon-list"></i>&nbsp;&nbsp;Add new offer<a href="#offer-page-create" class="btn btn-warning right-display myoffers dashboard-control">Create <i class="icon-plus"></i></a></h2>
+<!--               <p>You can access your created offers right here, create more, edit or delete the existing ones. Hit "More details" to see a preview and make sure all the informations are correct.</p>-->
+               
+            </div> <!-- /widget-content -->		
+	   </div>   
+    </div>
+    <div class="span6">
+        <div class="widget">
+	       <div class="widget-content orange-bg">		
+               <h2><i class="icon-info-sign"></i>&nbsp;&nbsp;Find out more<a href="#about" class="btn btn-default right-display dashboard-control">Learn more</a>	</h2>
+<!--               <p>Read more information about employee referral program, the advantages, the company perspective and a lot more interesting info. </p>	   	-->
+               
             </div> <!-- /widget-content -->		
 	   </div>   
     </div>
@@ -53,5 +67,37 @@
         $(".mainnav li").removeClass("active");
         $(".mainnav a[href='#dashboard']").parent().addClass("active");
         $(".loading-text").addClass("hide");
+        function ajaxGetCall(url, errorCallback, successCallback){
+            $.ajax({
+                url: url,
+                async: false,
+                type: 'get',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', currentUser.token_type +' '+ currentUser.access_token);
+                },
+                data: {},
+                dataType: 'json',
+                cache: false,
+                error: errorCallback,
+                success: successCallback
+            });
+        }
+        var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        ajaxGetCall('https://api.backand.com/1/query/data/getAllReferOffers?parameters=%7B%22pageSize%22:%225%22,%22startFrom%22:%220%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
+        if(myRecords.length == 0){
+            $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content' style='padding:20px 15px 20px 15px'><p style='text-align: center; font-style: italic; font-size:20px;'>There are no offers here :(</p></div></div></div>")
+            $(".filters").hide();
+        }
+        for(var i in myRecords){
+            var date = new Date(myRecords[i].dateCreated);
+            var corrDate = new Date(new Date(date).setHours(date.getHours+2));
+            var offerUrl = '/platform/index.html#offer-page:'+myRecords[i].id;
+            if(!myRecords[i].procent)
+                var procentTag = "<td><a href='"+offerUrl+"'>-</a></td>";
+            else
+                var procentTag = "<td><b><a href='"+offerUrl+"'>"+myRecords[i].procent+" Ron</a></b></td>";
+            
+            $(".latest-offers tbody").append("<tr><td class='hide-td-smaller'><a href='"+offerUrl+"'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</a></td><td><a href='"+offerUrl+"'>"+myRecords[i].title+"</a></td><td class='hide-td'><a href='"+offerUrl+"'>"+myRecords[i].jobType+"</a></td>"+procentTag+"<td><a href='"+offerUrl+"'><i class='icon-chevron-right'></i></a></td></tr>")
+        }
     });
 </script>

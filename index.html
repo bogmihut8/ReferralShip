@@ -26,13 +26,13 @@
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
           </svg>
-          <input type="text" class="login__input name" id="login_username" placeholder="Username"/>
+          <input type="text" class="login__input name" id="login_username" placeholder="Username" onkeyup = "if (event.keyCode == 13) document.getElementById('login_button').click()"    />
         </div>
         <div class="login__row">
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="password" class="login__input pass" id="login_password" placeholder="Password"/>
+          <input type="password" class="login__input pass" id="login_password" placeholder="Password" onkeyup = "if (event.keyCode == 13) document.getElementById('login_button').click()"    />
         </div>
         <div class="login_error hide">
               <p style="color:red">Something went wrong. Please try again!</p>
@@ -46,31 +46,31 @@
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
           </svg>
-          <input type="text" class="login__input name" placeholder="Email" id="signup_email"/>
+          <input type="text" class="login__input name" placeholder="Email" id="signup_email" onkeyup = "if (event.keyCode == 13) document.getElementById('submit_button').click()"    />
         </div>
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
           </svg>
-          <input type="text" class="login__input name" placeholder="First name" id="signup_firstname"/>
+          <input type="text" class="login__input name" placeholder="First name" id="signup_firstname" onkeyup = "if (event.keyCode == 13) document.getElementById('submit_button').click()"/>
         </div>
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
           </svg>
-          <input type="text" class="login__input name" placeholder="Last name" id="signup_lastname"/>
+          <input type="text" class="login__input name" placeholder="Last name" id="signup_lastname" onkeyup = "if (event.keyCode == 13) document.getElementById('submit_button').click()"/>
         </div>
         <div class="login__row">
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="password" class="login__input pass" placeholder="Password" id="signup_password"/>
+          <input type="password" class="login__input pass" placeholder="Password" id="signup_password" onkeyup = "if (event.keyCode == 13) document.getElementById('submit_button').click()"/>
         </div>
         <div class="login__row">
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="password" class="login__input pass" placeholder="Repeat Password" id="signup_repeatpass"/>
+          <input type="password" class="login__input pass" placeholder="Repeat Password" id="signup_repeatpass" onkeyup = "if (event.keyCode == 13) document.getElementById('submit_button').click()"/>
         </div>
         <button type="button" class="login__submit" id="submit_button">Sign up</button>
         <p class="login__signup">Already have an account? &nbsp;<a id="login">Login Here</a></p>
@@ -81,9 +81,9 @@
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
           </svg>
-          <input type="text" class="login__input name" placeholder="Email" id="reset_password_email"/>
+          <input type="text" class="login__input name" placeholder="Email" id="reset_password_email" onkeyup = "if (event.keyCode == 13) document.getElementById('reset_button').click()"/>
         </div>
-        <button type="button" class="login__submit" id="reset_button">Request password rest</button>
+        <button type="button" class="login__submit" id="reset_button">Request password reset</button>
       </div>
     </div>
     <div class="app">
