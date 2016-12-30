@@ -234,10 +234,10 @@
                     email = email.replace(/&nbsp;/g, "");
                     var mailData = JSON.stringify({
                       "to": myRecord[0].author,
-                      "message": encodeURI(email)
+                      "message": email
                     });
                     $.ajax({
-                        url: 'https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=SendEmailSendGrid',
+                        url: 'https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=SendEmailMandrill',
                         async: false,
                         type: 'post',
                         beforeSend: function (xhr) {
