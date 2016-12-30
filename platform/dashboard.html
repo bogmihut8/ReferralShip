@@ -11,7 +11,7 @@
     </div>
     <div class="welcome">
         <br>
-        <p class="increased-font-size">Welcome to ReferralShip, a platform where any individual can post job offers from their current company and job seekers can apply through them, generating a win-win-win situation. Candidates gain more trust, the chance to have an interview increases significantly and also can , while posters can earn money from their employee referral program. Take a good look, get used to the interface and start posting/seeking job offers right now!</p>
+        <p class="increased-font-size">Welcome to ReferralShip, a platform where any individual can post job offers from their current company and job seekers can apply through them, generating a win-win-win situation. Candidates gain more trust, the chance to have an interview increases significantly and also can earn a bonus reward, while posters can earn money from their employee referral program. Take a good look, get used to the interface and start posting/seeking job offers right now!</p>
     </div>
     <div class="span12">
         <div class="widget">
@@ -46,7 +46,7 @@
         <div class="span6">
         <div class="widget">
 	       <div class="widget-content">		
-               <h2><i class="icon-list"></i>&nbsp;&nbsp;Add new offer<a href="#offer-page-create" class="btn btn-warning right-display myoffers dashboard-control">Create <i class="icon-plus"></i></a></h2>
+               <h2><i class="icon-list"></i>&nbsp;&nbsp;Add new offer<a href="#offer-page-create" class="btn btn-warning right-display myoffers dashboard-control">Create &nbsp;&nbsp;<i class="icon-plus"></i></a></h2>
 <!--               <p>You can access your created offers right here, create more, edit or delete the existing ones. Hit "More details" to see a preview and make sure all the informations are correct.</p>-->
                
             </div> <!-- /widget-content -->		
@@ -83,7 +83,7 @@
             });
         }
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        ajaxGetCall('https://api.backand.com/1/query/data/getAllReferOffers?parameters=%7B%22pageSize%22:%225%22,%22startFrom%22:%220%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
+        ajaxGetCall('https://api.backand.com/1/query/data/getAllReferOffers?parameters=%7B%22pageSize%22:%225%22,%22startFrom%22:%220%22,%22cityParam%22:%22%22,%22keyword%22:%22%22%7D', function(error){alert(JSON.stringify(error))}, function(data){myRecords = data});
         if(myRecords.length == 0){
             $("#allOffers").append("<div class='span12'><div class='widget'><div class='widget-content' style='padding:20px 15px 20px 15px'><p style='text-align: center; font-style: italic; font-size:20px;'>There are no offers here :(</p></div></div></div>")
             $(".filters").hide();

@@ -1223,8 +1223,8 @@ width: 11px;}
     height: 15px;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
-    left: 245px;
-    top: 16px;
+    margin-left: 24px;
+    top: 9px;
     position: absolute;
 }
 
@@ -1523,6 +1523,9 @@ input[type="file"]{
     border: 1px solid #f5a732;
     font-size: 18px;
     text-align: center;
+}
+.filters{
+    position: relative;
 }
 /*------------------------------------------------------------------
 [8. Miscellaneous]

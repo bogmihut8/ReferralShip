@@ -2,13 +2,7 @@ $(function () {
 	if(!localStorage.getItem("currentUser")){
         window.location.replace("/");
     }
-    
-    $( document ).ajaxStart(function() {
-      $(".loader").removeClass("hidden");
-    }).ajaxComplete(function(){
-      $(".loader").addClass("hidden");
-    });
-	
+
 	$('.subnavbar').find ('li').each (function (i) {
 	
 		var mod = i % 3;
