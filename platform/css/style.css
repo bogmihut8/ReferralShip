@@ -329,7 +329,7 @@ a{
 	padding: 15px 0;
 	
 	font-size: 12px;
-	background: #111;
+	background: #333;
 	color: #999;
 }
 
@@ -1498,6 +1498,31 @@ input[type="file"]{
   color: #333;
   text-decoration: none;
     padding: 8px;
+}
+.control-group .controls .search-input{
+    height: 30px;
+    font-size: 17px;
+    width: 250px;
+}
+.control-group .controls .search-button{
+    height: 40px;
+    margin-top: -10px;
+    width: 100px;
+}
+.footer .icon-facebook-sign, .footer .icon-linkedin-sign{
+    font-size: 30px;
+    position: relative;
+    top: 6px;
+    margin-left: 10px
+}
+.offer-expired-warning{
+    background-color: #FFCC5E;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #f5a732;
+    font-size: 18px;
+    text-align: center;
 }
 /*------------------------------------------------------------------
 [8. Miscellaneous]

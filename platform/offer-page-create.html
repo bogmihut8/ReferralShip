@@ -40,10 +40,10 @@
                 </div> <!-- /control-group -->
                 
                 <div class="control-group">											
-                    <label class="control-label" for="percent">Percent</label>
+                    <label class="control-label" for="percent">Bonus</label>
                     <div class="controls">
-                        <input type="text" class="span4" id="percent"placeholder="20">
-                        <p class="help-block">This represents the percent of your bonus reward that you will award the applicant</p>
+                        <input type="text" class="span4" id="percent" placeholder="200">
+                        <p class="help-block">This represents the bonus reward that you will award the applicant if he/she will be hired.</p>
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
@@ -122,6 +122,7 @@
     if(window.location.href.indexOf("index.html#") == -1) {
        window.location.replace('/platform/index.html');
     }
+    
     $(document).ready(function(){
         $(".loading-text").addClass("hide");
         function ajaxGetCall(url, type, data, errorCallback, successCallback){
@@ -139,6 +140,7 @@
                 success: successCallback
             });
         }
+        
         var currentUser = JSON.parse(localStorage.getItem("currentUser"));
         tinymce.init({  
             selector: 'textarea',
@@ -194,7 +196,7 @@
                   allowOutsideClick: true,
                   allowEscapeKey: true
                 });
-                setTimeout(function() {window.location.replace("/platform/index.html#myoffers");}, 3000);
+                setTimeout(function() {window.opener.closeCallback(); window.close();}, 3000);
             })     
         })
         

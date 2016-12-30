@@ -2,7 +2,7 @@
     <div class="start">
         <div id="offer" class="row">
         </div><br>
-        <div class="form-group">
+        <div class="form-group offer-share">
             <a href="https://www.facebook.com/sharer/sharer.php?u=/platform/public%23offer%3A" target="_blank" class='btn btn-primary fb-share'><i class="icon-facebook-sign"></i>&nbsp;&nbsp;&nbsp;Share on Facebook</a>
         </div><br>
         <div class="form-group offer-page-control">
@@ -86,8 +86,20 @@
                             var procentTag = "";
                         else
                             var procentTag = "<span class='tag orange'>"+myRecord[0].procent+" Ron</span>";
+                        if(!myRecord[0].companyWebsite)
+                            var companyWebsite = "javascript:;";
+                        else
+                            var companyWebsite = myRecord[0].companyWebsite;
                         
-                        $("#offer").append("<div class='span12'><div class='offer-page-header'><span class='timeago offer-info-header'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago offer-info-header'><i class='icon-map-marker'></i>&nbsp;"+myRecord[0].city+", "+myRecord[0].country+"</span><span class='timeago offer-info-header'><i class='icon-building'></i>&nbsp;"+myRecord[0].company+"</span></div><h1 style='margin-top:15px; text-align:center'>"+myRecord[0].title+"</h1><div class='job-facts'>"+procentTag+"<span class='tag'>"+myRecord[0].jobType+"</span><span class='tag'>"+myRecord[0].jobLevel+"</span><span class='tag'>"+myRecord[0].jobCategory+"</span></div><p>"+myRecord[0].content+"</p></div>");
+                        $("#offer").append("<div class='span12'><div class='offer-page-header'><span class='timeago offer-info-header'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago offer-info-header'><i class='icon-map-marker'></i>&nbsp;"+myRecord[0].city+", "+myRecord[0].country+"</span><a href="+companyWebsite+" style='text-decoration:none; color:#666' target='_blank' class='timeago offer-info-header'><i class='icon-building'></i>&nbsp;"+myRecord[0].company+"</a></div><h1 style='margin-top:15px; text-align:center'>"+myRecord[0].title+"</h1><div class='job-facts'>"+procentTag+"<span class='tag'>"+myRecord[0].jobType+"</span><span class='tag'>"+myRecord[0].jobLevel+"</span><span class='tag'>"+myRecord[0].jobCategory+"</span></div><p>"+myRecord[0].content+"</p></div>");
+                        
+                        var dateNow = new Date();
+                        if(Date.parse(new Date(myRecord[0].expiresAt)) <= Date.parse(dateNow)){
+                            $(".interested-message").empty();
+                            $(".offer-share").empty();
+                            $("#offer").append("<div class='span12 offer-expired-warning'>This offer is expired!</div>");
+                        }
+                        
                     }
                 });
                 ajaxGetCall('https://api.backand.com/1/objects/action/ReferOffer/'+parseInt(params)+'?name=allowEdit&parameters=%7B%22operationKey%22:%22'+oKey+'%22%7D',

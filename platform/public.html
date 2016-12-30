@@ -98,9 +98,9 @@
                         if(!myRecord[0].procent)
                             var procentTag = "";
                         else
-                            var procentTag = "<div class='tag span2 orange'>"+myRecord[0].procent+"% Bonus</div>";
+                            var procentTag = "<span class='tag orange'>"+myRecord[0].procent+" Ron</span>";
                         
-                        $("#offer").append("<div class='span12'><p><i class='icon-time'></i>&nbsp;<span class='timeago'>"+$.timeago(date)+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author: "+myRecord[0].author+"</p><h1>"+myRecord[0].title+"</h1><div class='job-facts row'>"+procentTag+"<div class='tag span2'>"+myRecord[0].jobType+"</div><div class='tag span2'>"+myRecord[0].jobLevel+"</div><div class='tag span3'>"+myRecord[0].jobCategory+"</div></div><p>"+myRecord[0].content+"</p><h4><b>Company: </b>"+myRecord[0].company+"</h4><h4><b>Location: </b>"+myRecord[0].city+", "+myRecord[0].country+"</h4></div><br>Interested in this offer or you want to look for other?&nbsp;&nbsp;&nbsp;<a href='/' class='btn btn-warning'>Create account or login</button>");
+                        $("#offer").append("<div class='span12'><div class='offer-page-header'><span class='timeago offer-info-header'><i class='icon-time'></i>&nbsp;"+$.timeago(date)+"</span><span class='timeago offer-info-header'><i class='icon-map-marker'></i>&nbsp;"+myRecord[0].city+", "+myRecord[0].country+"</span><span class='timeago offer-info-header'><i class='icon-building'></i>&nbsp;"+myRecord[0].company+"</span></div><h1 style='margin-top:15px; text-align:center'>"+myRecord[0].title+"</h1><div class='job-facts'>"+procentTag+"<span class='tag'>"+myRecord[0].jobType+"</span><span class='tag'>"+myRecord[0].jobLevel+"</span><span class='tag'>"+myRecord[0].jobCategory+"</span></div><p>"+myRecord[0].content+"</p></div><br>Interested in this offer or you want to look for other?&nbsp;&nbsp;&nbsp;<a href='/' class='btn btn-warning'>Create account or login</a>");
                     }
                 });
     });
