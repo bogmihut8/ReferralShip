@@ -9,7 +9,7 @@
         <li>Job seekers contact the employee and sends resume</li>
         <li>Employees refer candidates to HR through their <b>ERP</b></li>
         <li>Candidates are contacted by HR</li>
-        <li>If selected, the employee gets the bonus and optionally awards a percentage to candidate</li>
+        <li>If selected, the poster gets the bonus from his company and optionally awards the candidate with a share from the reward</li>
         </ol>
         <br>
         <h1>What is an ERP?</h1>
@@ -66,10 +66,10 @@ http://qz.com/451848/referred-candidates-really-do-make-better-employees/</a></l
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        if(window.location.href.indexOf("index.html#") == -1) {
+    if(window.location.href.indexOf("index.html#") == -1) {
            window.location.replace('/platform/index.html');
         }
+    $(document).ready(function(){
         $(".mainnav li").removeClass("active");
         var page = window.location.hash;
         $(".mainnav a[href='"+page+"']").parent().addClass("active");
